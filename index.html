@@ -4,182 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Memoria - Números Binarios</title>
+    <meta http-equiv="refresh" content="0; url=numeros-binarios.html">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
         }
-
-        .container {
-            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .title {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .play-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 20px 40px;
+        .redirect-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
             border-radius: 15px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            margin: 20px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
+            backdrop-filter: blur(10px);
         }
-
-        .play-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-        }
-
-        .features {
-            margin: 30px 0;
-            text-align: left;
-        }
-
-        .features h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .features ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .features li {
-            color: #666;
-            margin: 10px 0;
-            padding-left: 25px;
-            position: relative;
-            line-height: 1.5;
-        }
-
-        .features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #28a745;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .github-link {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-        }
-
-        .github-link a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .github-link a:hover {
+        a {
+            color: #fff;
             text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .play-button {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">🎯 Juego de Memoria</h1>
-        <h2 class="subtitle">Números Binarios</h2>
-        
-        <p style="color: #666; margin-bottom: 30px; line-height: 1.6;">
-            Mejora tu memoria y velocidad de procesamiento con este juego de números binarios. 
-            Memoriza secuencias de números binarios y luego escríbelos correctamente.
-        </p>
-
-        <a href="numeros-binarios.html" class="play-button">🎮 Jugar Ahora</a>
-
-        <div class="features">
-            <h3>✨ Características del Juego:</h3>
-            <ul>
-                <li><strong>Modos de visualización:</strong> Horizontal y vertical</li>
-                <li><strong>Configuración flexible:</strong> Personaliza el número de grupos y rondas</li>
-                <li><strong>Temporizadores ajustables:</strong> Controla el tiempo de memorización y recall</li>
-                <li><strong>Controles especiales:</strong> Teclas rápidas para entrada de dígitos</li>
-                <li><strong>Sistema de rondas:</strong> Seguimiento de progreso y estadísticas</li>
-                <li><strong>Diseño responsivo:</strong> Funciona en dispositivos móviles y de escritorio</li>
-                <li><strong>Interfaz moderna:</strong> Diseño atractivo y fácil de usar</li>
-            </ul>
-        </div>
-
-        <div class="features">
-            <h3>🎯 Cómo Jugar:</h3>
-            <ul>
-                <li>Configura el número de grupos binarios que quieres memorizar</li>
-                <li>Elige el modo de visualización (horizontal o vertical)</li>
-                <li>Selecciona el tiempo de memorización y recall</li>
-                <li>Memoriza los números binarios mostrados</li>
-                <li>Escribe los números en la fase de recall</li>
-                <li>Revisa tus resultados y mejora tu puntuación</li>
-            </ul>
-        </div>
-
-        <div class="github-link">
-            <p>📁 <a href="https://github.com/tu-usuario/juego-memoria-binarios" target="_blank">Ver en GitHub</a></p>
-        </div>
+    <div class="redirect-message">
+        <h1>🎯 Juego de Memoria - Números Binarios</h1>
+        <p>Redirigiendo al juego...</p>
+        <p>Si no eres redirigido automáticamente, <a href="numeros-binarios.html">haz clic aquí</a></p>
     </div>
 </body>
 </html> 
