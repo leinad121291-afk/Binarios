@@ -27,9 +27,8 @@ Este juego te desafía a memorizar secuencias de números binarios de 3 dígitos
 ## 🚀 Cómo Jugar
 
 ### 1. Configuración Inicial
-1. Abre `index.html` en tu navegador
-2. Haz clic en "🎮 Jugar Ahora"
-3. Configura los parámetros del juego:
+1. Abre `numeros-binarios.html` en tu navegador
+2. Configura los parámetros del juego:
    - Número de grupos binarios a memorizar
    - Modo de visualización (horizontal/vertical)
    - Número de grupos por página
@@ -88,16 +87,16 @@ Durante la fase de escritura, puedes usar las siguientes teclas para entrada rá
 
 ```
 juego-memoria-binarios/
-├── index.html              # Página principal
 ├── numeros-binarios.html   # Juego principal
-└── README.md              # Este archivo
+├── README.md              # Este archivo
+└── LICENSE                # Licencia MIT
 ```
 
 ## 🚀 Instalación y Uso
 
 ### Opción 1: Uso Directo
 1. Descarga o clona este repositorio
-2. Abre `index.html` en tu navegador web
+2. Abre `numeros-binarios.html` en tu navegador web
 3. ¡Comienza a jugar!
 
 ### Opción 2: GitHub Pages
