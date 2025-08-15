@@ -5,145 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Memoria - Números Binarios</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-sizing: border-box;
+        }
+
+        body {
             min-height: 100vh;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
         }
-        
+
         .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 25px;
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
             max-width: 600px;
-            margin: 20px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        h1 {
+
+        .title {
             color: #333;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .description {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
             margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: bold;
         }
-        
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
         .play-button {
-            display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin: 20px 0;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
         }
-        
+
         .play-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
             background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
         }
-        
+
         .features {
-            margin-top: 30px;
+            margin: 30px 0;
             text-align: left;
         }
-        
+
         .features h3 {
             color: #333;
             margin-bottom: 15px;
+            font-size: 1.3rem;
         }
-        
+
         .features ul {
-            color: #666;
-            line-height: 1.8;
+            list-style: none;
+            padding: 0;
         }
-        
+
         .features li {
-            margin-bottom: 8px;
+            color: #666;
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
         }
-        
+
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
         .github-link {
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
         }
-        
+
         .github-link a {
-            color: #667eea;
+            color: #007bff;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
         }
-        
+
         .github-link a:hover {
             text-decoration: underline;
         }
-        
+
         @media (max-width: 768px) {
             .container {
-                padding: 30px 20px;
+                padding: 20px;
                 margin: 10px;
             }
             
-            h1 {
+            .title {
                 font-size: 2rem;
             }
             
-            .description {
+            .subtitle {
                 font-size: 1rem;
+            }
+            
+            .play-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Juego de Memoria</h1>
-        <h2 style="color: #667eea; margin-bottom: 20px;">Números Binarios</h2>
+        <h1 class="title">🎯 Juego de Memoria</h1>
+        <h2 class="subtitle">Números Binarios</h2>
         
-        <div class="description">
-            <p>¡Mejora tu memoria con este juego de números binarios! Memoriza secuencias de dígitos binarios de 3 dígitos y pon a prueba tu capacidad de retención.</p>
-        </div>
-        
-        <script>
-            // Redirigir automáticamente al juego principal
-            window.location.href = '../numeros-binarios.html';
-        </script>
-        <a href="../numeros-binarios.html" class="play-button">🎯 JUGAR AHORA</a>
-        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">Redirigiendo automáticamente...</p>
-        
+        <p style="color: #666; margin-bottom: 30px; line-height: 1.6;">
+            Mejora tu memoria y velocidad de procesamiento con este juego de números binarios. 
+            Memoriza secuencias de números binarios y luego escríbelos correctamente.
+        </p>
+
+        <a href="numeros-binarios.html" class="play-button">🎮 Jugar Ahora</a>
+
         <div class="features">
             <h3>✨ Características del Juego:</h3>
             <ul>
-                <li><strong>🎯 Modos de Visualización:</strong> 1, 2 o 3 grupos por página</li>
-                <li><strong>📐 Direcciones de Juego:</strong> Horizontal (bloques separados) y Vertical (tablero alto)</li>
-                <li><strong>⚡ Controles Especiales:</strong> Teclas 0-7 para rellenar automáticamente 3 dígitos</li>
-                <li><strong>📱 Diseño Responsivo:</strong> Optimizado para móviles y tablets</li>
-                <li><strong>🎮 Sistema de Rondas:</strong> Juega múltiples rondas y mejora tu puntuación</li>
-                <li><strong>⏱️ Temporizadores Configurables:</strong> Ajusta los tiempos de memorización y recall</li>
-                <li><strong>📊 Estadísticas Detalladas:</strong> Visualiza tu progreso y rendimiento</li>
-                <li><strong>🔄 Auto-avance:</strong> El cursor se mueve automáticamente al siguiente input</li>
-                <li><strong>🎨 Interfaz Moderna:</strong> Diseño atractivo con gradientes y animaciones</li>
+                <li><strong>Modos de visualización:</strong> Horizontal y vertical</li>
+                <li><strong>Configuración flexible:</strong> Personaliza el número de grupos y rondas</li>
+                <li><strong>Temporizadores ajustables:</strong> Controla el tiempo de memorización y recall</li>
+                <li><strong>Controles especiales:</strong> Teclas rápidas para entrada de dígitos</li>
+                <li><strong>Sistema de rondas:</strong> Seguimiento de progreso y estadísticas</li>
+                <li><strong>Diseño responsivo:</strong> Funciona en dispositivos móviles y de escritorio</li>
+                <li><strong>Interfaz moderna:</strong> Diseño atractivo y fácil de usar</li>
             </ul>
         </div>
-        
+
+        <div class="features">
+            <h3>🎯 Cómo Jugar:</h3>
+            <ul>
+                <li>Configura el número de grupos binarios que quieres memorizar</li>
+                <li>Elige el modo de visualización (horizontal o vertical)</li>
+                <li>Selecciona el tiempo de memorización y recall</li>
+                <li>Memoriza los números binarios mostrados</li>
+                <li>Escribe los números en la fase de recall</li>
+                <li>Revisa tus resultados y mejora tu puntuación</li>
+            </ul>
+        </div>
+
         <div class="github-link">
-            <p>📁 <a href="https://github.com/tu-usuario/juego-memoria-binarios" target="_blank">Ver código en GitHub</a></p>
+            <p>📁 <a href="https://github.com/tu-usuario/juego-memoria-binarios" target="_blank">Ver en GitHub</a></p>
         </div>
     </div>
 </body>
-</html>
+</html> 

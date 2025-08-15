@@ -1,151 +1,133 @@
-# 🎮 Juego de Memoria - Números Binarios
+# 🎯 Juego de Memoria - Números Binarios
 
-Un juego interactivo de memoria diseñado para mejorar la capacidad de retención mediante la memorización de números binarios de 3 dígitos.
+Un juego interactivo para mejorar la memoria y velocidad de procesamiento mediante la memorización de números binarios.
 
-## 🎯 Descripción
+## 📋 Descripción
 
-Este juego te desafía a memorizar secuencias de números binarios (0s y 1s) organizados en grupos de 3 dígitos. Es una excelente herramienta para entrenar tu memoria y mejorar tu capacidad de concentración.
+Este juego te desafía a memorizar secuencias de números binarios de 3 dígitos y luego escribirlos correctamente. Es una excelente herramienta para entrenar tu memoria de trabajo y mejorar tu capacidad de procesamiento de información.
 
-## ✨ Características Principales
+## ✨ Características
 
-### 🎮 Funcionalidades del Juego
-- **Modos de Visualización**: 1, 2 o 3 grupos por página
-- **Controles Especiales**: Teclas 0-7 para rellenar automáticamente 3 dígitos
-- **Sistema de Rondas**: Juega múltiples rondas y mejora tu puntuación
-- **Temporizadores Configurables**: Ajusta los tiempos de memorización y recall
-- **Auto-avance**: El cursor se mueve automáticamente al siguiente input
-- **Validación en Tiempo Real**: Solo permite dígitos binarios (0 y 1)
+### 🎮 Modos de Juego
+- **Modo Horizontal**: Visualización tradicional con grupos separados por páginas
+- **Modo Vertical**: Visualización compacta con todos los grupos en un tablero alto
 
-### 📱 Diseño Responsivo
-- **Optimizado para Móviles**: Interfaz adaptada para dispositivos táctiles
-- **Tablets**: Experiencia optimizada para pantallas medianas
-- **Desktop**: Interfaz completa para computadoras
-- **Navegación por Teclado**: Controles especiales y navegación mejorada
+### ⚙️ Configuración Flexible
+- **Número de grupos**: Personaliza cuántos números binarios memorizar (1-999,999)
+- **Modos de visualización**: 1, 2 o 3 grupos por página
+- **Sistema de rondas**: Configura el número de rondas (1-100)
+- **Temporizadores ajustables**: Controla tiempos de memorización y recall
 
-### 📊 Estadísticas y Análisis
-- **Puntuación por Ronda**: Seguimiento individual de cada ronda
-- **Estadísticas Totales**: Promedio de precisión y mejor racha
-- **Comparación Visual**: Resultados lado a lado con colores
-- **Progresión de Rondas**: Historial completo de rendimiento
+### 🎯 Funcionalidades Avanzadas
+- **Controles especiales**: Teclas rápidas (0-7) para entrada automática de dígitos
+- **Autoavance**: Opción de avance automático entre páginas
+- **Seguimiento de progreso**: Estadísticas detalladas por ronda
+- **Diseño responsivo**: Funciona perfectamente en móviles y escritorio
 
 ## 🚀 Cómo Jugar
 
 ### 1. Configuración Inicial
-1. **Números a Memorizar**: Elige cuántos grupos de números binarios quieres memorizar
-2. **Configuración de Visualización**: Selecciona 1, 2 o 3 grupos por página
-3. **Temporizadores**: Configura los tiempos de memorización y recall
-4. **Rondas**: Define cuántas rondas quieres jugar
-5. **Controles Especiales**: Personaliza las teclas 0-7 (opcional)
+1. Abre `index.html` en tu navegador
+2. Haz clic en "🎮 Jugar Ahora"
+3. Configura los parámetros del juego:
+   - Número de grupos binarios a memorizar
+   - Modo de visualización (horizontal/vertical)
+   - Número de grupos por página
+   - Tiempos de memorización y recall
+   - Número de rondas
 
 ### 2. Fase de Memorización
-- Observa los números binarios que aparecen en pantalla
-- Utiliza las flechas ← → para navegar entre páginas
-- El tiempo se cuenta automáticamente
+- Los números binarios se mostrarán según tu configuración
+- Usa los botones "Anterior" y "Siguiente" para navegar
+- En modo autoavance, las páginas cambiarán automáticamente
+- En modo manual, usa "Terminar Memorización" cuando estés listo
 
 ### 3. Fase de Escritura
-- Escribe los números binarios que memorizaste
-- Usa el input continuo o haz clic en dígitos individuales
-- Aprovecha los controles especiales (teclas 0-7)
-- El cursor avanza automáticamente
+- Escribe los números binarios memorizados
+- Usa el campo de entrada continua o haz clic en dígitos individuales
+- Aprovecha las teclas rápidas (0-7) para entrada rápida
+- Verifica tu respuesta cuando termines
 
 ### 4. Resultados
-- Visualiza tu puntuación y precisión
-- Revisa la comparación visual de resultados
-- Analiza tu progreso a través de las rondas
+- Revisa tu precisión y tiempo empleado
+- Analiza las estadísticas de la ronda
+- Continúa con la siguiente ronda o inicia un nuevo juego
 
-## 🎯 Controles Especiales
+## 🎮 Controles Especiales
 
-| Tecla | Valor Binario | Descripción |
-|-------|---------------|-------------|
-| 0 | 000 | Rellena automáticamente 000 |
-| 1 | 001 | Rellena automáticamente 001 |
-| 2 | 011 | Rellena automáticamente 011 |
-| 3 | 111 | Rellena automáticamente 111 |
-| 4 | 100 | Rellena automáticamente 100 |
-| 5 | 101 | Rellena automáticamente 101 |
-| 6 | 110 | Rellena automáticamente 110 |
-| 7 | 010 | Rellena automáticamente 010 |
+Durante la fase de escritura, puedes usar las siguientes teclas para entrada rápida:
+
+| Tecla | Dígitos Binarios |
+|-------|------------------|
+| 0 | 000 |
+| 1 | 001 |
+| 2 | 011 |
+| 3 | 111 |
+| 4 | 100 |
+| 5 | 101 |
+| 6 | 110 |
+| 7 | 010 |
+
+## 📱 Compatibilidad
+
+- ✅ Chrome (recomendado)
+- ✅ Firefox
+- ✅ Safari
+- ✅ Edge
+- ✅ Dispositivos móviles (iOS/Android)
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **HTML5**: Estructura semántica y accesible
-- **CSS3**: Diseño moderno con gradientes y animaciones
-- **JavaScript ES6+**: Lógica del juego y interactividad
-- **Responsive Design**: CSS Grid y Flexbox
-- **Local Storage**: Persistencia de configuraciones
+- **HTML5**: Estructura semántica
+- **CSS3**: Diseño moderno y responsivo
+- **JavaScript**: Lógica del juego y interactividad
+- **Gradientes CSS**: Efectos visuales atractivos
+- **Flexbox/Grid**: Layouts adaptativos
 
 ## 📁 Estructura del Proyecto
 
 ```
 juego-memoria-binarios/
-├── index.html              # Página principal de bienvenida
+├── index.html              # Página principal
 ├── numeros-binarios.html   # Juego principal
-├── README.md              # Documentación del proyecto
-└── assets/                # Recursos adicionales (si los hay)
+└── README.md              # Este archivo
 ```
 
 ## 🚀 Instalación y Uso
 
-### Opción 1: Jugar Online
-1. Visita la página del juego
-2. Haz clic en "JUGAR AHORA"
-3. Configura tus preferencias
-4. ¡Comienza a jugar!
+### Opción 1: Uso Directo
+1. Descarga o clona este repositorio
+2. Abre `index.html` en tu navegador web
+3. ¡Comienza a jugar!
 
-### Opción 2: Descarga Local
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/juego-memoria-binarios.git
-   ```
-2. Abre `index.html` en tu navegador
-3. ¡Disfruta del juego!
+### Opción 2: GitHub Pages
+1. Sube este repositorio a GitHub
+2. Activa GitHub Pages en la configuración del repositorio
+3. Accede al juego desde la URL proporcionada
 
-## 🎮 Modos de Juego
+## 🎯 Beneficios del Entrenamiento
 
-### Modo Individual (1 grupo por página)
-- **Dificultad**: Fácil
-- **Ideal para**: Principiantes
-- **Ejemplo**: `111` / `000`
+Este juego ayuda a mejorar:
 
-### Modo Parejas (2 grupos por página)
-- **Dificultad**: Intermedia
-- **Ideal para**: Jugadores experimentados
-- **Ejemplo**: `010    111` / `111    111`
+- **Memoria de trabajo**: Capacidad de retener información temporalmente
+- **Velocidad de procesamiento**: Rapidez en el manejo de información
+- **Concentración**: Enfoque sostenido en tareas cognitivas
+- **Precisión**: Exactitud en la reproducción de información
+- **Resistencia mental**: Capacidad de mantener el rendimiento
 
-### Modo Triple (3 grupos por página)
-- **Dificultad**: Difícil
-- **Ideal para**: Expertos
-- **Ejemplo**: `101     111     010` / `000     111     000`
+## 📊 Estadísticas del Juego
 
-## 📱 Compatibilidad
+El juego registra y muestra:
 
-### Navegadores Soportados
-- ✅ Chrome 60+
-- ✅ Firefox 55+
-- ✅ Safari 12+
-- ✅ Edge 79+
-
-### Dispositivos
-- ✅ Computadoras de escritorio
-- ✅ Laptops
-- ✅ Tablets
-- ✅ Smartphones
-
-## 🎯 Beneficios del Juego
-
-### 🧠 Entrenamiento Mental
-- **Memoria de Trabajo**: Mejora la capacidad de retener información temporal
-- **Concentración**: Aumenta la capacidad de atención sostenida
-- **Velocidad de Procesamiento**: Acelera el reconocimiento de patrones
-
-### 🎮 Habilidades Cognitivas
-- **Pensamiento Lógico**: Desarrolla el razonamiento binario
-- **Coordinación Ojo-Mano**: Mejora la precisión en dispositivos táctiles
-- **Planificación**: Estrategias para optimizar el tiempo de memorización
+- **Precisión por ronda**: Porcentaje de dígitos correctos
+- **Tiempo de memorización**: Duración de la fase de estudio
+- **Progreso general**: Evolución a lo largo de las rondas
+- **Mejor racha**: Consecutivas correctas más larga
+- **Promedio de precisión**: Rendimiento general
 
 ## 🤝 Contribuciones
 
-¡Las contribuciones son bienvenidas! Si quieres mejorar el juego:
+Las contribuciones son bienvenidas. Para contribuir:
 
 1. Haz un fork del proyecto
 2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
@@ -159,30 +141,12 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👨‍💻 Autor
 
-**Tu Nombre**
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- Email: tu-email@ejemplo.com
-
-## 🙏 Agradecimientos
-
-- Inspirado en técnicas de entrenamiento de memoria
-- Diseño basado en principios de UX/UI modernos
-- Feedback de la comunidad de desarrolladores
+Desarrollado con ❤️ para mejorar las habilidades cognitivas.
 
 ## 📞 Contacto
 
-¿Tienes preguntas o sugerencias? ¡No dudes en contactarme!
-
-- 📧 Email: tu-email@ejemplo.com
-- 🐦 Twitter: [@tu-usuario](https://twitter.com/tu-usuario)
-- 💼 LinkedIn: [Tu Nombre](https://linkedin.com/in/tu-usuario)
+Si tienes preguntas o sugerencias, no dudes en abrir un issue en GitHub.
 
 ---
 
-⭐ **¡Si te gusta este proyecto, dale una estrella en GitHub!**
-
----
-
-*Desarrollado con ❤️ para mejorar la memoria y el aprendizaje*
-
-
+**¡Disfruta entrenando tu memoria con números binarios! 🧠✨** 
