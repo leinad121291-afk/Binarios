@@ -2241,15 +2241,15 @@
                     groupsToShow.push(numberSequence[currentNumberIndex + i]);
                 }
                 
-                // Mostrar los grupos con formato horizontal
+                // Mostrar los grupos con formato horizontal con un pequeño espacio entre grupos
                 display.innerHTML = `
-                    <div style="display: flex; justify-content: center; gap: 30px; font-family: 'Courier New', monospace; font-size: 3rem; font-weight: bold; color: #333; flex-wrap: wrap;">
+                    <div style="display: flex; justify-content: center; gap: 10px; font-family: 'Courier New', monospace; font-size: 3rem; font-weight: bold; color: #333; flex-wrap: wrap;">
                         ${groupsToShow.map(group => {
                             const [firstRow, secondRow] = group.split('\n');
                             return `
-                                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e9ecef; min-width: 150px;">
-                                    <div style="margin-bottom: 10px; letter-spacing: 3px;">${firstRow}</div>
-                                    <div style="letter-spacing: 3px;">${secondRow}</div>
+                                <div style="text-align: center; padding: 0px; background: transparent; border: none; min-width: auto;">
+                                    <div style="margin-bottom: 10px; letter-spacing: 0px;">${firstRow}</div>
+                                    <div style="letter-spacing: 0px;">${secondRow}</div>
                                 </div>
                             `;
                         }).join('')}
@@ -2468,8 +2468,8 @@
             // Reiniciar índice de página para la fase de escritura
             currentInputPage = 0;
             
-            // Generar cuadrícula de dígitos para la primera página
-            generateDigitsGridForPage(0);
+            // Generar cuadrícula de dígitos mostrando todos los grupos (como en resultados)
+            generateDigitsGrid();
             
             // Actualizar información de controles especiales
             updateSpecialControlsInfo();
@@ -2599,7 +2599,14 @@
                 
                 container.appendChild(mainContainer);
             } else {
-                // Modo horizontal - lógica original
+                // Modo horizontal - usar flexbox en lugar de grid para evitar apilamiento
+                container.style.display = 'flex';
+                container.style.flexDirection = 'row';
+                container.style.justifyContent = 'center';
+                container.style.alignItems = 'flex-start';
+                container.style.gap = '20px';
+                container.style.flexWrap = 'wrap';
+                
                 for (let groupIndex = 0; groupIndex < numberSequence.length; groupIndex++) {
                     // Crear contenedor para el grupo de dígitos
                     const groupContainer = document.createElement('div');
@@ -2778,7 +2785,14 @@
                 
                 container.appendChild(mainContainer);
             } else {
-                // Modo horizontal - lógica original
+                // Modo horizontal - usar flexbox en lugar de grid para evitar apilamiento
+                container.style.display = 'flex';
+                container.style.flexDirection = 'row';
+                container.style.justifyContent = 'center';
+                container.style.alignItems = 'flex-start';
+                container.style.gap = '20px';
+                container.style.flexWrap = 'wrap';
+                
                 for (let i = 0; i < groupsInThisPage && startGroupIndex + i < numberSequence.length; i++) {
                     const groupIndex = startGroupIndex + i;
                     
@@ -2846,29 +2860,10 @@
         
         // Actualizar información de página en la fase de escritura
         function updateInputPageInfo() {
-            let totalPages;
-            if (displayMode === 'single') {
-                totalPages = numberSequence.length;
-            } else if (displayMode === 'pairs') {
-                totalPages = Math.ceil(numberSequence.length / 2);
-            } else if (displayMode === 'triple') {
-                totalPages = Math.ceil(numberSequence.length / 3);
-            }
-            
             const pageInfo = document.getElementById('input-page-info');
             if (pageInfo) {
-                pageInfo.textContent = `Página ${currentInputPage + 1} de ${totalPages}`;
-            }
-            
-            // Actualizar estado de botones de navegación
-            const prevBtn = document.getElementById('prev-input-btn');
-            const nextBtn = document.getElementById('next-input-btn');
-            
-            if (prevBtn) {
-                prevBtn.disabled = currentInputPage === 0;
-            }
-            if (nextBtn) {
-                nextBtn.disabled = currentInputPage >= totalPages - 1;
+                // Mostrar texto simple indicando que deben escribir todos los números
+                pageInfo.textContent = `Escribe todos los números binarios memorizados (${numberSequence.length} grupos)`;
             }
         }
         
@@ -3953,19 +3948,29 @@
                        const correctParts = correctGroup.split('\n');
                        const userParts = userGroup.split('\n');
                        
-                       // Crear contenedor para el grupo de dígitos (mismo estilo que escritura)
-                       const groupContainer = document.createElement('div');
-                       groupContainer.style.cssText = 'text-align: center; padding: 6px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; min-width: 100px; font-family: Courier New, monospace;';
+                       // Contenedor principal para TU RESPUESTA + RESPUESTA CORRECTA
+                       const doubleGroupContainer = document.createElement('div');
+                       doubleGroupContainer.style.cssText = 'display: flex; gap: 8px; align-items: center; margin-bottom: 8px;';
                        
-                       // Crear contenedor para la primera fila (3 dígitos)
-                       const firstRow = document.createElement('div');
-                       firstRow.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 3px;';
+                       // ===== TU RESPUESTA (CON COLORES) =====
+                       const userGroupContainer = document.createElement('div');
+                       userGroupContainer.style.cssText = 'text-align: center; padding: 6px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; min-width: 90px; font-family: Courier New, monospace;';
                        
-                       // Crear contenedor para la segunda fila (3 dígitos)
-                       const secondRow = document.createElement('div');
-                       secondRow.style.cssText = 'display: flex; gap: 3px; justify-content: center;';
+                       // Título "Tu respuesta"
+                       const userLabel = document.createElement('div');
+                       userLabel.textContent = 'Tú';
+                       userLabel.style.cssText = 'font-size: 0.7rem; color: #666; margin-bottom: 3px; font-weight: bold;';
+                       userGroupContainer.appendChild(userLabel);
                        
-                       // Procesar primera fila (posiciones 0, 1, 2)
+                       // Crear contenedor para la primera fila (3 dígitos) - TU RESPUESTA
+                       const userFirstRow = document.createElement('div');
+                       userFirstRow.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 3px;';
+                       
+                       // Crear contenedor para la segunda fila (3 dígitos) - TU RESPUESTA
+                       const userSecondRow = document.createElement('div');
+                       userSecondRow.style.cssText = 'display: flex; gap: 3px; justify-content: center;';
+                       
+                       // Procesar primera fila (posiciones 0, 1, 2) - TU RESPUESTA
                        for (let digitIndex = 0; digitIndex < 3; digitIndex++) {
                            const digit = document.createElement('div');
                            const userDigit = userParts[0] ? userParts[0][digitIndex] : ' ';
@@ -3986,10 +3991,10 @@
                                digit.style.borderColor = '#f5c6cb';
                            }
                            
-                           firstRow.appendChild(digit);
+                           userFirstRow.appendChild(digit);
                        }
                        
-                       // Procesar segunda fila (posiciones 3, 4, 5)
+                       // Procesar segunda fila (posiciones 3, 4, 5) - TU RESPUESTA
                        for (let digitIndex = 0; digitIndex < 3; digitIndex++) {
                            const digit = document.createElement('div');
                            const userDigit = userParts[1] ? userParts[1][digitIndex] : ' ';
@@ -4010,12 +4015,59 @@
                                digit.style.borderColor = '#f5c6cb';
                            }
                            
-                           secondRow.appendChild(digit);
+                           userSecondRow.appendChild(digit);
                        }
                        
-                       groupContainer.appendChild(firstRow);
-                       groupContainer.appendChild(secondRow);
-                       pageColumn.appendChild(groupContainer);
+                       userGroupContainer.appendChild(userFirstRow);
+                       userGroupContainer.appendChild(userSecondRow);
+                       
+                       // ===== RESPUESTA CORRECTA =====
+                       const correctGroupContainer = document.createElement('div');
+                       correctGroupContainer.style.cssText = 'text-align: center; padding: 6px; background: #d4edda; border: 2px solid #28a745; border-radius: 4px; min-width: 90px; font-family: Courier New, monospace;';
+                       
+                       // Título "Correcta"
+                       const correctLabel = document.createElement('div');
+                       correctLabel.textContent = 'Correcta';
+                       correctLabel.style.cssText = 'font-size: 0.7rem; color: #155724; margin-bottom: 3px; font-weight: bold;';
+                       correctGroupContainer.appendChild(correctLabel);
+                       
+                       // Crear contenedor para la primera fila (3 dígitos) - CORRECTA
+                       const correctFirstRow = document.createElement('div');
+                       correctFirstRow.style.cssText = 'display: flex; gap: 3px; justify-content: center; margin-bottom: 3px;';
+                       
+                       // Crear contenedor para la segunda fila (3 dígitos) - CORRECTA
+                       const correctSecondRow = document.createElement('div');
+                       correctSecondRow.style.cssText = 'display: flex; gap: 3px; justify-content: center;';
+                       
+                       // Procesar primera fila (posiciones 0, 1, 2) - CORRECTA
+                       for (let digitIndex = 0; digitIndex < 3; digitIndex++) {
+                           const digit = document.createElement('div');
+                           const correctDigit = correctParts[0] ? correctParts[0][digitIndex] : ' ';
+                           
+                           digit.style.cssText = 'width: 22px; height: 22px; font-size: 0.9rem; text-align: center; border: 1px solid #28a745; border-radius: 2px; font-family: Courier New, monospace; font-weight: bold; display: flex; align-items: center; justify-content: center; background: white; color: #155724;';
+                           digit.textContent = correctDigit || '_';
+                           
+                           correctFirstRow.appendChild(digit);
+                       }
+                       
+                       // Procesar segunda fila (posiciones 3, 4, 5) - CORRECTA
+                       for (let digitIndex = 0; digitIndex < 3; digitIndex++) {
+                           const digit = document.createElement('div');
+                           const correctDigit = correctParts[1] ? correctParts[1][digitIndex] : ' ';
+                           
+                           digit.style.cssText = 'width: 22px; height: 22px; font-size: 0.9rem; text-align: center; border: 1px solid #28a745; border-radius: 2px; font-family: Courier New, monospace; font-weight: bold; display: flex; align-items: center; justify-content: center; background: white; color: #155724;';
+                           digit.textContent = correctDigit || '_';
+                           
+                           correctSecondRow.appendChild(digit);
+                       }
+                       
+                       correctGroupContainer.appendChild(correctFirstRow);
+                       correctGroupContainer.appendChild(correctSecondRow);
+                       
+                       // Agregar ambos contenedores al contenedor principal
+                       doubleGroupContainer.appendChild(userGroupContainer);
+                       doubleGroupContainer.appendChild(correctGroupContainer);
+                       pageColumn.appendChild(doubleGroupContainer);
                    }
                    
                    mainContainer.appendChild(pageColumn);
@@ -4023,17 +4075,26 @@
                
                container.appendChild(mainContainer);
            } else {
-               // Modo horizontal - estructura original
+               // Modo horizontal - mostrar respuesta del usuario y respuesta correcta
                const groupsPerRow = 4;
                const totalGroups = results.length;
                const totalRows = Math.ceil(totalGroups / groupsPerRow);
                
                for (let rowIndex = 0; rowIndex < totalRows; rowIndex++) {
+                   // Contenedor principal para esta fila
+                   const mainRowContainer = document.createElement('div');
+                   mainRowContainer.style.cssText = 'display: flex; flex-direction: column; gap: 15px; margin: 15px 0;';
+                   
+                   // Contenedor para las respuestas del usuario
                    const userRow = document.createElement('div');
                    userRow.className = 'comparison-row';
+                   userRow.style.cssText = 'display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;';
                    
-                   const userNumbers = document.createElement('div');
-                   userNumbers.className = 'comparison-number';
+                   // Título "Tus respuestas"
+                   const userTitle = document.createElement('div');
+                   userTitle.textContent = 'Tus respuestas:';
+                   userTitle.style.cssText = 'font-size: 0.9rem; color: #666; font-weight: bold; text-align: center; width: 100%; margin-bottom: 5px;';
+                   mainRowContainer.appendChild(userTitle);
                    
                    const startIndex = rowIndex * groupsPerRow;
                    const endIndex = Math.min(startIndex + groupsPerRow, totalGroups);
@@ -4051,6 +4112,10 @@
                        groupContainer.style.flexDirection = 'column';
                        groupContainer.style.gap = '2px';
                        groupContainer.style.margin = '0 5px';
+                       groupContainer.style.padding = '8px';
+                       groupContainer.style.background = '#f8f9fa';
+                       groupContainer.style.borderRadius = '4px';
+                       groupContainer.style.border = '1px solid #e9ecef';
                        
                        for (let partIndex = 0; partIndex < 2; partIndex++) {
                            const correctPart = correctParts[partIndex] || '';
@@ -4075,11 +4140,59 @@
                            groupContainer.appendChild(lineContainer);
                        }
                        
-                       userNumbers.appendChild(groupContainer);
+                       userRow.appendChild(groupContainer);
                    }
                    
-                   userRow.appendChild(userNumbers);
-                   container.appendChild(userRow);
+                   mainRowContainer.appendChild(userRow);
+                   
+                   // Contenedor para las respuestas correctas
+                   const correctRow = document.createElement('div');
+                   correctRow.className = 'comparison-row';
+                   correctRow.style.cssText = 'display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;';
+                   
+                   // Título "Respuestas correctas"
+                   const correctTitle = document.createElement('div');
+                   correctTitle.textContent = 'Respuestas correctas:';
+                   correctTitle.style.cssText = 'font-size: 0.9rem; color: #155724; font-weight: bold; text-align: center; width: 100%; margin-bottom: 5px;';
+                   mainRowContainer.appendChild(correctTitle);
+                   
+                   for (let i = startIndex; i < endIndex; i++) {
+                       const correctGroup = numberSequence[i];
+                       const correctParts = correctGroup.split('\n');
+                       
+                       const groupContainer = document.createElement('div');
+                       groupContainer.style.display = 'flex';
+                       groupContainer.style.flexDirection = 'column';
+                       groupContainer.style.gap = '2px';
+                       groupContainer.style.margin = '0 5px';
+                       groupContainer.style.padding = '8px';
+                       groupContainer.style.background = '#d4edda';
+                       groupContainer.style.borderRadius = '4px';
+                       groupContainer.style.border = '2px solid #28a745';
+                       
+                       for (let partIndex = 0; partIndex < 2; partIndex++) {
+                           const correctPart = correctParts[partIndex] || '';
+                           
+                           const lineContainer = document.createElement('div');
+                           lineContainer.style.display = 'flex';
+                           lineContainer.style.gap = '2px';
+                           
+                           for (let digitIndex = 0; digitIndex < 3; digitIndex++) {
+                               const digit = document.createElement('div');
+                               digit.style.cssText = 'width: 25px; height: 30px; font-size: 1rem; text-align: center; border: 1px solid #28a745; border-radius: 3px; font-family: Courier New, monospace; font-weight: bold; display: flex; align-items: center; justify-content: center; background: white; color: #155724;';
+                               digit.textContent = correctPart[digitIndex] || '_';
+                               
+                               lineContainer.appendChild(digit);
+                           }
+                           
+                           groupContainer.appendChild(lineContainer);
+                       }
+                       
+                       correctRow.appendChild(groupContainer);
+                   }
+                   
+                   mainRowContainer.appendChild(correctRow);
+                   container.appendChild(mainRowContainer);
                }
            }
        }
