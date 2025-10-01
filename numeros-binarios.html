@@ -1115,37 +1115,38 @@
             
             <!-- Números a Memorizar -->
             <div class="section">
-                <h3 class="section-title">1. Números a Memorizar</h3>
-                <p>Escribe cuántos números binarios quieres memorizar (de 3 dígitos cada uno):</p>
+                <h3 class="section-title">1. Grupos de binarios a memorizar</h3>
+                <p>Escribe cuántos grupos quieres memorizar:</p>
                 <div class="digits-input-container">
                     <input type="number" id="digits-input" class="digits-input" min="1" max="999999" value="" placeholder="5">
-                    <span style="font-size: 1.1rem; color: #333;">números</span>
+                    <span style="font-size: 1.1rem; color: #333;">grupos</span>
                 </div>
-                <p id="selected-info">Memorizarás 5 números binarios de 3 dígitos (2 números por página)</p>
+                <p id="selected-info">Memorizarás 5 grupos | 3 páginas | 12 dígitos por página | 30 binarios totales</p>
             </div>
 
             <!-- Configuración de Visualización -->
             <div class="section">
                 <h3 class="section-title">2. Visualización</h3>
                 
-                <!-- Modo Especial: Matriz 3x6 -->
-                <div style="margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; border: 3px solid #5a67d8;">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                        <input type="checkbox" id="special-matrix-mode" style="width: 20px; height: 20px; cursor: pointer;">
-                        <label for="special-matrix-mode" style="font-weight: bold; color: white; font-size: 1.2rem; cursor: pointer; margin: 0;">
-                            ⭐ Modo Especial: Matriz 3×6
-                        </label>
-                    </div>
-                    <div style="background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 10px; margin-top: 10px;">
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                            <p style="color: #333; font-size: 0.95rem; margin: 0 0 10px 0; text-align: center;">
-                                <strong>Formato:</strong> 3 filas × 6 dígitos (18 dígitos binarios por grupo)
-                            </p>
-                            <div style="font-family: 'Courier New', monospace; font-size: 1.3rem; font-weight: bold; color: #333; text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 2px solid #667eea; line-height: 1.8;">
+                <!-- Modo Matriz 3×6 -->
+                <div style="margin-bottom: 30px;">
+                    <p>Modo de matrices 3x6:</p>
+                    <div style="display: flex; justify-content: center; margin: 20px 0;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 10px 0; padding: 15px; border: 2px solid #e9ecef; border-radius: 8px; background: white; min-width: 300px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="special-matrix-mode" style="width: 20px; height: 20px; cursor: pointer;">
+                                <label for="special-matrix-mode" style="font-weight: bold; color: #333; cursor: pointer; margin: 0;">
+                                    Modo Matriz 3×6
+                                </label>
+                            </div>
+                            <div style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef; line-height: 1.6;">
                                 000000<br>111000<br>101010
                             </div>
-                            <p style="color: #666; font-size: 0.85rem; margin: 10px 0 0 0; text-align: center;">
-                                ℹ️ Al activar este modo, se deshabilitarán las opciones de dirección y grupos por página
+                            <p style="color: #666; font-size: 0.85rem; margin: 0; text-align: center;">
+                                3 filas × 6 dígitos (18 binarios)
+                            </p>
+                            <p style="color: #666; font-size: 0.8rem; margin: 5px 0 0 0; text-align: center;">
+                                ℹ️ Deshabilita dirección y grupos por página
                             </p>
                         </div>
                     </div>
@@ -1159,10 +1160,9 @@
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <input type="radio" id="horizontal-direction" name="direction-mode" value="horizontal" checked>
                                 <label for="horizontal-direction" style="font-weight: bold; color: #333;">Horizontal</label>
-                                <span style="font-size: 0.9rem; color: #666;">(Actual)</span>
                             </div>
                             <div style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
-                                111<br>000
+                                111   010<br>000   101
                             </div>
                         </div>
                         
@@ -1170,7 +1170,6 @@
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <input type="radio" id="vertical-direction" name="direction-mode" value="vertical">
                                 <label for="vertical-direction" style="font-weight: bold; color: #333;">Vertical</label>
-                                <span style="font-size: 0.9rem; color: #666;">(Nuevo)</span>
                             </div>
                             <div style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
                                 111<br>000<br>010<br>101
@@ -1188,7 +1187,6 @@
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="radio" id="single-group-mode" name="display-mode" value="single" checked>
                             <label for="single-group-mode" style="font-weight: bold; color: #333;">1 grupo</label>
-                            <span style="font-size: 0.9rem; color: #666;">(Más fácil)</span>
                         </div>
                         <div style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
                             111<br>000
@@ -1199,7 +1197,9 @@
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="radio" id="pairs-mode" name="display-mode" value="pairs">
                             <label for="pairs-mode" style="font-weight: bold; color: #333;">2 grupos</label>
-                            <span style="font-size: 0.9rem; color: #666;">(Recomendado)</span>
+                        </div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
+                            111  101<br>000  101
                         </div>
                     </div>
                     
@@ -1207,7 +1207,9 @@
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="radio" id="triple-mode" name="display-mode" value="triple">
                             <label for="triple-mode" style="font-weight: bold; color: #333;">3 grupos</label>
-                            <span style="font-size: 0.9rem; color: #666;">(Más difícil)</span>
+                        </div>
+                        <div style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; padding: 10px; background: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
+                            111  101  010<br>000  101  010
                         </div>
                     </div>
                 </div>
@@ -1698,7 +1700,7 @@
             // Si el usuario está borrando, permitir que el campo esté vacío temporalmente
             if (this.value === '') {
                 selectedDigits = 0;
-                document.getElementById('selected-info').textContent = 'Escribe cuántos números quieres memorizar';
+                document.getElementById('selected-info').textContent = 'Escribe cuántos grupos quieres memorizar';
                 updateSummary();
                 updateModeDescription();
                 return;
@@ -1709,11 +1711,9 @@
             if (selectedDigits > 999999) selectedDigits = 999999;
             this.value = selectedDigits;
             
-            const pages = Math.ceil(selectedDigits / (displayMode === 'single' ? 1 : displayMode === 'pairs' ? 2 : 3));
-            document.getElementById('selected-info').textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (${pages} páginas)`;
+            updateDisplayInfo();
             updateSummary();
             updateModeDescription();
-            updateDisplayInfo();
         });
         
         // Establecer valor por defecto solo cuando el campo esté vacío y el usuario haya terminado de escribir
@@ -1721,11 +1721,9 @@
             if (!this.value || this.value === '') {
                 this.value = '5';
                 selectedDigits = 5;
-                const pages = Math.ceil(selectedDigits / 2);
-                document.getElementById('selected-info').textContent = `Memorizarás ${selectedDigits} números del 00-99 (${pages} páginas)`;
+                updateDisplayInfo();
                 updateSummary();
                 updateModeDescription();
-                updateDisplayInfo();
             }
         });
 
@@ -1933,8 +1931,9 @@
             // Si está activado el modo especial de matriz 3x6
             if (specialMatrixMode) {
                 pages = selectedDigits;
-                displayText = `⭐ Modo Especial: Verás matrices de 3×6 (18 dígitos binarios por grupo), 1 grupo por página (${pages} páginas).`;
-                selectedInfo.textContent = `Memorizarás ${selectedDigits} matrices de 3×6 (18 dígitos binarios cada una)`;
+                const totalDigits = selectedDigits * 18;
+                displayText = `Modo Matriz 3×6: Verás matrices de 3×6 (18 dígitos binarios por grupo), 1 grupo por página (${pages} páginas).`;
+                selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 18 dígitos por página | ${totalDigits} binarios totales`;
                 displayInfo.textContent = displayText;
                 return;
             }
@@ -1943,31 +1942,37 @@
                 // Modo horizontal (actual)
                 if (displayMode === 'single') {
                     pages = selectedDigits;
+                    const totalDigits = selectedDigits * 6;
                     displayText = `Verás los grupos de números binarios de 1 por página (${pages} páginas) con disposición horizontal.`;
-                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (1 grupo por página)`;
+                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 6 dígitos por página | ${totalDigits} binarios totales`;
                 } else if (displayMode === 'pairs') {
                     pages = Math.ceil(selectedDigits / 2);
+                    const totalDigits = selectedDigits * 6;
                     displayText = `Verás los grupos de números binarios de 2 por página (${pages} páginas) con disposición horizontal.`;
-                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (2 grupos por página)`;
+                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 12 dígitos por página | ${totalDigits} binarios totales`;
                 } else if (displayMode === 'triple') {
                     pages = Math.ceil(selectedDigits / 3);
+                    const totalDigits = selectedDigits * 6;
                     displayText = `Verás los grupos de números binarios de 3 por página (${pages} páginas) con disposición horizontal.`;
-                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (3 grupos por página)`;
+                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 18 dígitos por página | ${totalDigits} binarios totales`;
                 }
             } else {
                 // Modo vertical (nuevo) - separar por páginas según la selección
                 if (displayMode === 'single') {
                     pages = selectedDigits;
+                    const totalDigits = selectedDigits * 6;
                     displayText = `Verás los grupos de números binarios de 1 por página (${pages} páginas) con disposición vertical.`;
-                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (1 grupo por página)`;
+                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 6 dígitos por página | ${totalDigits} binarios totales`;
                 } else if (displayMode === 'pairs') {
                     pages = Math.ceil(selectedDigits / 2);
+                    const totalDigits = selectedDigits * 6;
                     displayText = `Verás los grupos de números binarios de 2 por página (${pages} páginas) con disposición vertical.`;
-                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (2 grupos por página)`;
+                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 12 dígitos por página | ${totalDigits} binarios totales`;
                 } else if (displayMode === 'triple') {
                     pages = Math.ceil(selectedDigits / 3);
+                    const totalDigits = selectedDigits * 6;
                     displayText = `Verás los grupos de números binarios de 3 por página (${pages} páginas) con disposición vertical.`;
-                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (3 grupos por página)`;
+                    selectedInfo.textContent = `Memorizarás ${selectedDigits} grupos | ${pages} páginas | 18 dígitos por página | ${totalDigits} binarios totales`;
                 }
             }
             
@@ -1987,7 +1992,8 @@
                 
                 // Actualizar apartado de Números
                 if (selectedDigits > 0) {
-                    document.getElementById('summary-digits').textContent = `${selectedDigits} matrices (${selectedDigits} páginas)`;
+                    const totalDigits = selectedDigits * 18;
+                    document.getElementById('summary-digits').textContent = `${selectedDigits} matrices (${selectedDigits} páginas) - ${totalDigits} binarios totales`;
                 } else {
                     document.getElementById('summary-digits').textContent = '(escribe un número)';
                 }
@@ -2043,7 +2049,8 @@
             
             // Actualizar apartado de Números (solo cantidad)
             if (selectedDigits > 0) {
-                document.getElementById('summary-digits').textContent = `${selectedDigits} grupos (${pages} páginas)`;
+                const totalDigits = selectedDigits * 6;
+                document.getElementById('summary-digits').textContent = `${selectedDigits} grupos (${pages} páginas) - ${totalDigits} binarios totales`;
             } else {
                 document.getElementById('summary-digits').textContent = '(escribe un número)';
             }
@@ -2840,7 +2847,7 @@
                         font-size: 1.1rem;
                     `;
                     header.innerHTML = `
-                        ⭐ Modo Especial: Matriz 3×6<br>
+                        Modo Matriz 3×6<br>
                         <span style="font-size: 0.9rem; opacity: 0.9;">Escribe en TODOS los cuadros de TODAS las matrices</span>
                     `;
                     container.appendChild(header);
@@ -4965,11 +4972,9 @@
             if (digitsInput && (!digitsInput.value || digitsInput.value === '')) {
                 // No establecer valor automáticamente, solo actualizar la información
                 selectedDigits = 5;
-                const pages = Math.ceil(selectedDigits / (displayMode === 'single' ? 1 : displayMode === 'pairs' ? 2 : 3));
-                document.getElementById('selected-info').textContent = `Memorizarás ${selectedDigits} grupos de números binarios de 3 dígitos (${pages} páginas)`;
+                updateDisplayInfo();
                 updateSummary();
                 updateModeDescription();
-                updateDisplayInfo();
             }
             
             // No establecer automáticamente valores por defecto para permitir que el usuario los borre
