@@ -1128,8 +1128,31 @@
             <div class="section">
                 <h3 class="section-title">2. Visualización</h3>
                 
+                <!-- Modo Especial: Matriz 3x6 -->
+                <div style="margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; border: 3px solid #5a67d8;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <input type="checkbox" id="special-matrix-mode" style="width: 20px; height: 20px; cursor: pointer;">
+                        <label for="special-matrix-mode" style="font-weight: bold; color: white; font-size: 1.2rem; cursor: pointer; margin: 0;">
+                            ⭐ Modo Especial: Matriz 3×6
+                        </label>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 10px; margin-top: 10px;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <p style="color: #333; font-size: 0.95rem; margin: 0 0 10px 0; text-align: center;">
+                                <strong>Formato:</strong> 3 filas × 6 dígitos (18 dígitos binarios por grupo)
+                            </p>
+                            <div style="font-family: 'Courier New', monospace; font-size: 1.3rem; font-weight: bold; color: #333; text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 2px solid #667eea; line-height: 1.8;">
+                                000000<br>111000<br>101010
+                            </div>
+                            <p style="color: #666; font-size: 0.85rem; margin: 10px 0 0 0; text-align: center;">
+                                ℹ️ Al activar este modo, se deshabilitarán las opciones de dirección y grupos por página
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Selector de Dirección -->
-                <div style="margin-bottom: 30px;">
+                <div id="direction-selector" style="margin-bottom: 30px;">
                     <p>Elige la dirección de disposición de los números:</p>
                     <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
                         <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 10px 0; padding: 15px; border: 2px solid #e9ecef; border-radius: 8px; background: white; min-width: 200px;">
@@ -1157,6 +1180,8 @@
                     <p id="direction-info" style="font-size: 0.9rem; color: #666; margin-top: 10px;">Disposición horizontal: grupos separados por páginas.</p>
                 </div>
                 
+                <!-- Selector de Grupos por Página -->
+                <div id="groups-selector">
                 <p>Elige cuántos grupos de números binarios quieres ver por página:</p>
                 <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 10px 0; padding: 15px; border: 2px solid #e9ecef; border-radius: 8px; background: white; min-width: 200px;">
@@ -1187,6 +1212,7 @@
                     </div>
                 </div>
                 <p id="display-info" style="font-size: 0.9rem; color: #666; margin-top: 10px;">Verás los números binarios en grupos de 1 por página con disposición horizontal.</p>
+                </div>
             </div>
 
             <!-- Tiempo de Memorización -->
@@ -1616,6 +1642,7 @@
         let currentMode = 'memorization'; // 'memorization' o 'auto-advance'
         let displayMode = 'single'; // 'single', 'pairs' o 'triple'
         let direction = 'horizontal'; // 'horizontal' o 'vertical'
+        let specialMatrixMode = false; // Modo especial: matriz 3x6
         let currentInputPage = 0; // Para la paginación en la fase de escritura
         let results = []; // Para almacenar resultados detallados
         
@@ -1640,16 +1667,29 @@
         let roundScores = []; // Array para almacenar puntuaciones de cada ronda
         let totalScore = 0;
 
-        // Generar secuencia de pares de números binarios de 3 dígitos
+        // Generar secuencia de pares de números binarios de 3 dígitos o matrices 3x6
         function generateNumberSequence() {
             numberSequence = [];
-            for (let i = 0; i < selectedDigits; i++) {
-                // Generar dos números binarios de 3 dígitos (000-111) para formar un par
-                const binaryNumber1 = Math.floor(Math.random() * 8).toString(2).padStart(3, '0');
-                const binaryNumber2 = Math.floor(Math.random() * 8).toString(2).padStart(3, '0');
-                // Crear par con salto de línea: "111\n000"
-                const pair = binaryNumber1 + '\n' + binaryNumber2;
-                numberSequence.push(pair);
+            
+            if (specialMatrixMode) {
+                // Modo especial: Generar matrices de 3x6 (3 filas de 6 dígitos)
+                for (let i = 0; i < selectedDigits; i++) {
+                    const row1 = Array.from({length: 6}, () => Math.floor(Math.random() * 2)).join('');
+                    const row2 = Array.from({length: 6}, () => Math.floor(Math.random() * 2)).join('');
+                    const row3 = Array.from({length: 6}, () => Math.floor(Math.random() * 2)).join('');
+                    const matrix = row1 + '\n' + row2 + '\n' + row3;
+                    numberSequence.push(matrix);
+                }
+            } else {
+                // Modo normal: Generar pares de números binarios de 3 dígitos
+                for (let i = 0; i < selectedDigits; i++) {
+                    // Generar dos números binarios de 3 dígitos (000-111) para formar un par
+                    const binaryNumber1 = Math.floor(Math.random() * 8).toString(2).padStart(3, '0');
+                    const binaryNumber2 = Math.floor(Math.random() * 8).toString(2).padStart(3, '0');
+                    // Crear par con salto de línea: "111\n000"
+                    const pair = binaryNumber1 + '\n' + binaryNumber2;
+                    numberSequence.push(pair);
+                }
             }
         }
 
@@ -1792,6 +1832,42 @@
             }
         });
         
+        // Event listener para modo especial de matriz 3x6
+        document.getElementById('special-matrix-mode').addEventListener('change', function() {
+            specialMatrixMode = this.checked;
+            toggleSpecialMatrixMode(this.checked);
+            updateDisplayInfo();
+            updateSummary();
+        });
+        
+        // Función para habilitar/deshabilitar selectores cuando se activa el modo especial
+        function toggleSpecialMatrixMode(enabled) {
+            const directionSelector = document.getElementById('direction-selector');
+            const groupsSelector = document.getElementById('groups-selector');
+            const directionRadios = document.querySelectorAll('input[name="direction-mode"]');
+            const displayRadios = document.querySelectorAll('input[name="display-mode"]');
+            
+            if (enabled) {
+                // Deshabilitar y atenuar los selectores
+                directionSelector.style.opacity = '0.4';
+                directionSelector.style.pointerEvents = 'none';
+                groupsSelector.style.opacity = '0.4';
+                groupsSelector.style.pointerEvents = 'none';
+                
+                directionRadios.forEach(radio => radio.disabled = true);
+                displayRadios.forEach(radio => radio.disabled = true);
+            } else {
+                // Habilitar los selectores
+                directionSelector.style.opacity = '1';
+                directionSelector.style.pointerEvents = 'auto';
+                groupsSelector.style.opacity = '1';
+                groupsSelector.style.pointerEvents = 'auto';
+                
+                directionRadios.forEach(radio => radio.disabled = false);
+                displayRadios.forEach(radio => radio.disabled = false);
+            }
+        }
+        
         // Event listeners para dirección de visualización
         document.getElementById('horizontal-direction').addEventListener('change', function() {
             if (this.checked) {
@@ -1854,6 +1930,15 @@
             
             let pages, displayText;
             
+            // Si está activado el modo especial de matriz 3x6
+            if (specialMatrixMode) {
+                pages = selectedDigits;
+                displayText = `⭐ Modo Especial: Verás matrices de 3×6 (18 dígitos binarios por grupo), 1 grupo por página (${pages} páginas).`;
+                selectedInfo.textContent = `Memorizarás ${selectedDigits} matrices de 3×6 (18 dígitos binarios cada una)`;
+                displayInfo.textContent = displayText;
+                return;
+            }
+            
             if (direction === 'horizontal') {
                 // Modo horizontal (actual)
                 if (displayMode === 'single') {
@@ -1894,6 +1979,47 @@
             let pages = selectedDigits;
             let displayText = 'individual';
             let directionText = direction === 'horizontal' ? 'horizontal' : 'vertical';
+            
+            // Si está activado el modo especial de matriz 3x6
+            if (specialMatrixMode) {
+                displayText = '⭐ Matriz 3×6';
+                directionText = '1 por página';
+                
+                // Actualizar apartado de Números
+                if (selectedDigits > 0) {
+                    document.getElementById('summary-digits').textContent = `${selectedDigits} matrices (${selectedDigits} páginas)`;
+                } else {
+                    document.getElementById('summary-digits').textContent = '(escribe un número)';
+                }
+                
+                // Actualizar apartado de Visualización
+                document.getElementById('summary-display').textContent = `${displayText} (${directionText})`;
+                
+                // Actualizar información de rondas
+                if (totalRounds > 0) {
+                    document.getElementById('summary-rounds').textContent = `Rondas: ${totalRounds}`;
+                } else {
+                    document.getElementById('summary-rounds').textContent = `Rondas: (escribe un número)`;
+                }
+                
+                // Manejar temporizadores vacíos
+                const memorizationText = memorizationTime > 0 ? `${memorizationTime.toFixed(1)}s` : '(escribe tiempo)';
+                const recallText = recallTime > 0 ? `${recallTime.toFixed(1)}s` : '(escribe tiempo)';
+                document.getElementById('summary-timers').textContent = `${recallText}`;
+                
+                if (currentMode === 'memorization') {
+                    const modeText = memorizationTime > 0 ? `(${memorizationTime.toFixed(1)}s)` : '(escribe tiempo)';
+                    document.getElementById('summary-mode').textContent = `Modo: Tiempo de memorización ${modeText}`;
+                } else {
+                    const modeText = autoAdvanceTime > 0 ? `(${autoAdvanceTime.toFixed(1)}s)` : '(escribe tiempo)';
+                    document.getElementById('summary-mode').textContent = `Modo: Autoavance ${modeText}`;
+                }
+                
+                // Actualizar tiempos estimados
+                updateTimeEstimates();
+                
+                return;
+            }
             
             if (direction === 'horizontal') {
                 // Modo horizontal (actual)
@@ -2143,6 +2269,12 @@
         loadSpecialKeysConfig();
         updateControlsSummary();
         
+        // Asegurar que el modo especial esté desmarcado por defecto
+        const specialMatrixCheckbox = document.getElementById('special-matrix-mode');
+        if (specialMatrixCheckbox) {
+            specialMatrixCheckbox.checked = false;
+        }
+        
         // Inicializar conversión de tiempo de recall
         const recallConversion = document.getElementById('recall-time-conversion');
         if (recallTime > 60) {
@@ -2209,27 +2341,36 @@
              roundScores = [];
              totalScore = 0;
              
-             // Obtener modo de visualización seleccionado
-             const singleGroupMode = document.getElementById('single-group-mode');
-             const pairsMode = document.getElementById('pairs-mode');
-             const tripleMode = document.getElementById('triple-mode');
-             
-             if (singleGroupMode && singleGroupMode.checked) {
-                 displayMode = 'single';
-             } else if (pairsMode && pairsMode.checked) {
-                 displayMode = 'pairs';
-             } else if (tripleMode && tripleMode.checked) {
-                 displayMode = 'triple';
+             // Obtener modo especial de matriz 3x6
+             const specialMatrixCheckbox = document.getElementById('special-matrix-mode');
+             if (specialMatrixCheckbox) {
+                 specialMatrixMode = specialMatrixCheckbox.checked;
              }
              
-             // Obtener dirección seleccionada
-             const horizontalDirection = document.getElementById('horizontal-direction');
-             const verticalDirection = document.getElementById('vertical-direction');
-             
-             if (horizontalDirection && horizontalDirection.checked) {
-                 direction = 'horizontal';
-             } else if (verticalDirection && verticalDirection.checked) {
-                 direction = 'vertical';
+             // Solo obtener modo de visualización y dirección si no está activo el modo especial
+             if (!specialMatrixMode) {
+                 // Obtener modo de visualización seleccionado
+                 const singleGroupMode = document.getElementById('single-group-mode');
+                 const pairsMode = document.getElementById('pairs-mode');
+                 const tripleMode = document.getElementById('triple-mode');
+                 
+                 if (singleGroupMode && singleGroupMode.checked) {
+                     displayMode = 'single';
+                 } else if (pairsMode && pairsMode.checked) {
+                     displayMode = 'pairs';
+                 } else if (tripleMode && tripleMode.checked) {
+                     displayMode = 'triple';
+                 }
+                 
+                 // Obtener dirección seleccionada
+                 const horizontalDirection = document.getElementById('horizontal-direction');
+                 const verticalDirection = document.getElementById('vertical-direction');
+                 
+                 if (horizontalDirection && horizontalDirection.checked) {
+                     direction = 'horizontal';
+                 } else if (verticalDirection && verticalDirection.checked) {
+                     direction = 'vertical';
+                 }
              }
              
              generateNumberSequence();
@@ -2317,6 +2458,34 @@
             
             if (numberSequence.length === 0) {
                 display.textContent = 'No hay números para mostrar';
+                return;
+            }
+            
+            // Modo especial: Matriz 3x6
+            if (specialMatrixMode) {
+                const matrix = numberSequence[currentNumberIndex];
+                const rows = matrix.split('\n');
+                
+                display.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; font-family: 'Courier New', monospace; font-size: 3rem; font-weight: bold; color: #333; gap: 15px;">
+                        <div style="text-align: center; padding: 20px; background: transparent; border: none;">
+                            ${rows.map(row => `<div style="margin-bottom: 10px; letter-spacing: 8px;">${row}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                progress.textContent = `Matriz ${currentNumberIndex + 1} de ${numberSequence.length}`;
+                
+                prevBtn.disabled = currentNumberIndex === 0;
+                nextBtn.disabled = currentNumberIndex + 1 >= numberSequence.length;
+                
+                // Aplicar estilo sin bordes en fase de memorización
+                if (gameState === 'memorization') {
+                    display.classList.add('memorization');
+                } else {
+                    display.classList.remove('memorization');
+                }
+                
                 return;
             }
             
@@ -2446,6 +2615,13 @@
             console.log('numberSequence.length:', numberSequence.length);
             
             if (currentNumberIndex > 0) {
+                // Modo especial: siempre avanzar de 1 en 1
+                if (specialMatrixMode) {
+                    currentNumberIndex--;
+                    updateDisplay();
+                    return;
+                }
+                
                 // Retroceder según el modo de visualización
                 let stepSize = 1;
                 if (displayMode === 'pairs') stepSize = 2;
@@ -2472,6 +2648,24 @@
             console.log('=== FUNCIÓN nextNumber() EJECUTADA ===');
             console.log('Botón Siguiente clickeado. currentNumberIndex:', currentNumberIndex);
             console.log('numberSequence.length:', numberSequence.length);
+            
+            // Modo especial: siempre avanzar de 1 en 1
+            if (specialMatrixMode) {
+                if (currentNumberIndex + 1 < numberSequence.length) {
+                    currentNumberIndex++;
+                    updateDisplay();
+                    
+                    // Reiniciar timer si estamos en modo autoavance
+                    if (currentMode === 'auto-advance') {
+                        clearInterval(timerInterval);
+                        timer = autoAdvanceTime;
+                        document.getElementById('timer').textContent = `Tiempo restante: ${timer.toFixed(1)} segundos`;
+                        document.getElementById('elapsed-time').textContent = `Tiempo empleado: 0.0 segundos`;
+                        startTimer();
+                    }
+                }
+                return;
+            }
             
             // Calcular el paso según el modo de visualización
             let stepSize = 1;
@@ -2576,7 +2770,8 @@
             // Reiniciar índice de página para la fase de escritura
             currentInputPage = 0;
             
-            // Generar cuadrícula de dígitos mostrando todos los grupos (como en resultados)
+            // Generar cuadrícula de dígitos mostrando TODOS los grupos (sin paginación en recall)
+            console.log(`✅ finishMemorization: Generando inputs para todos los ${numberSequence.length} grupos`);
             generateDigitsGrid();
             
             // Actualizar información de controles especiales
@@ -2612,8 +2807,233 @@
 
         // Generar cuadrícula de dígitos para números binarios
         function generateDigitsGrid() {
+            console.log(`✅ generateDigitsGrid llamada - gameState: ${gameState}, displayMode: ${displayMode}`);
             const container = document.getElementById('digits-input-container');
             container.innerHTML = '';
+            
+            // En fase de recall (input), SIEMPRE mostrar todos los inputs sin paginación
+            if (gameState === 'input') {
+                console.log(`✅ Fase de recall: Mostrando TODOS los inputs (${numberSequence.length} grupos)`);
+                // En fase de recall, ignorar displayMode y mostrar todos los grupos
+                if (specialMatrixMode) {
+                    // NUEVA IMPLEMENTACIÓN PARA MODO ESPECIAL EN RECALL
+                    console.log(`⭐ Creando fase de recall para modo especial - ${numberSequence.length} matrices`);
+                    
+                    // Configurar contenedor principal
+                    container.style.display = 'flex';
+                    container.style.flexDirection = 'column';
+                    container.style.gap = '25px';
+                    container.style.maxWidth = '1200px';
+                    container.style.margin = '20px auto';
+                    container.style.padding = '20px';
+                    
+                    // Crear encabezado informativo
+                    const header = document.createElement('div');
+                    header.style.cssText = `
+                        text-align: center; 
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                        color: white; 
+                        padding: 15px; 
+                        border-radius: 10px; 
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                        font-size: 1.1rem;
+                    `;
+                    header.innerHTML = `
+                        ⭐ Modo Especial: Matriz 3×6<br>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">Escribe en TODOS los cuadros de TODAS las matrices</span>
+                    `;
+                    container.appendChild(header);
+                    
+                    // Crear inputs para cada matriz
+                    for (let matrixIndex = 0; matrixIndex < numberSequence.length; matrixIndex++) {
+                        const matrixContainer = document.createElement('div');
+                        matrixContainer.style.cssText = `
+                            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+                            border: 3px solid #667eea;
+                            border-radius: 15px;
+                            padding: 25px;
+                            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+                            transition: all 0.3s ease;
+                        `;
+                        
+                        // Título de la matriz con estilo mejorado
+                        const title = document.createElement('div');
+                        title.textContent = `Matriz ${matrixIndex + 1}`;
+                        title.style.cssText = `
+                            text-align: center; 
+                            font-weight: bold; 
+                            font-size: 1.4rem; 
+                            color: #667eea; 
+                            margin-bottom: 20px;
+                            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+                        `;
+                        matrixContainer.appendChild(title);
+                        
+                        // Crear 3 filas de 6 dígitos con mejor espaciado
+                        for (let rowNum = 0; rowNum < 3; rowNum++) {
+                            const row = document.createElement('div');
+                            row.style.cssText = `
+                                display: flex; 
+                                gap: 8px; 
+                                justify-content: center; 
+                                margin-bottom: ${rowNum < 2 ? '12px' : '0'};
+                                align-items: center;
+                            `;
+                            
+                            // Etiqueta de fila (opcional, para mejor UX)
+                            const rowLabel = document.createElement('div');
+                            rowLabel.textContent = `F${rowNum + 1}:`;
+                            rowLabel.style.cssText = `
+                                font-weight: bold; 
+                                color: #667eea; 
+                                margin-right: 10px; 
+                                font-size: 0.9rem;
+                                min-width: 30px;
+                            `;
+                            row.appendChild(rowLabel);
+                            
+                            for (let colNum = 0; colNum < 6; colNum++) {
+                                const digitPos = rowNum * 6 + colNum;
+                                
+                                // Crear input manualmente para evitar conflictos con createDigitInput
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.className = 'digit-input';
+                                input.maxLength = 1;
+                                // IMPORTANTE: Usar 18 dígitos por matriz en lugar de 6 por grupo
+                                input.dataset.digitIndex = (matrixIndex * 18) + digitPos;
+                                input.dataset.groupIndex = matrixIndex;
+                                input.dataset.digitPosition = digitPos;
+                                input.placeholder = '_';
+                                input.value = '';
+                                
+                                input.style.cssText = `
+                                    width: 45px; 
+                                    height: 45px; 
+                                    font-size: 1.6rem; 
+                                    text-align: center; 
+                                    border: 2px solid #667eea; 
+                                    border-radius: 8px; 
+                                    font-family: 'Courier New', monospace; 
+                                    font-weight: bold;
+                                    background: white;
+                                    transition: all 0.2s ease;
+                                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                `;
+                                
+                                // Agregar event listeners manualmente (copiados de createDigitInput)
+                                input.addEventListener('input', function(e) {
+                                    const value = e.target.value;
+                                    if (value.length > 0 && !/^[01]$/.test(value)) {
+                                        e.target.value = '';
+                                        // Mostrar mensaje de error temporal
+                                        e.target.style.borderColor = '#dc3545';
+                                        e.target.style.backgroundColor = '#f8d7da';
+                                        setTimeout(() => {
+                                            e.target.style.borderColor = '#667eea';
+                                            e.target.style.backgroundColor = 'white';
+                                        }, 1000);
+                                        return;
+                                    }
+                                    if (value.length > 1) {
+                                        e.target.value = value.slice(-1);
+                                    }
+                                    syncContinuousInput();
+                                });
+                                
+                                // Evento para mover al siguiente input automáticamente
+                                input.addEventListener('input', function(e) {
+                                    const value = e.target.value;
+                                    if (value.length === 1 && /^[01]$/.test(value)) {
+                                        const nextInput = document.querySelector(`[data-digit-index="${(matrixIndex * 18) + digitPos + 1}"]`);
+                                        if (nextInput) {
+                                            nextInput.focus();
+                                        }
+                                    }
+                                });
+                                
+                                // Evento para permitir clic directo en cualquier dígito
+                                input.addEventListener('click', function(e) {
+                                    e.stopPropagation();
+                                    console.log(`🖱️ Click en input - Matriz: ${matrixIndex}, Posición: ${digitPos}, Índice total: ${(matrixIndex * 18) + digitPos}`);
+                                    this.focus();
+                                    this.select();
+                                });
+                                
+                                // Efectos hover y focus mejorados
+                                input.addEventListener('mouseenter', function() {
+                                    this.style.borderColor = '#5a67d8';
+                                    this.style.backgroundColor = '#f7fafc';
+                                    this.style.transform = 'scale(1.05)';
+                                });
+                                
+                                input.addEventListener('mouseleave', function() {
+                                    this.style.borderColor = '#667eea';
+                                    this.style.backgroundColor = 'white';
+                                    this.style.transform = 'scale(1)';
+                                });
+                                
+                                input.addEventListener('focus', function() {
+                                    this.style.borderColor = '#4c51bf';
+                                    this.style.backgroundColor = '#ebf4ff';
+                                    this.style.boxShadow = '0 0 0 3px rgba(79, 172, 254, 0.3)';
+                                });
+                                
+                                input.addEventListener('blur', function() {
+                                    this.style.borderColor = '#667eea';
+                                    this.style.backgroundColor = 'white';
+                                    this.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                                });
+                                
+                                row.appendChild(input);
+                            }
+                            
+                            matrixContainer.appendChild(row);
+                        }
+                        
+                        // Agregar indicador visual de que esta matriz es editable
+                        const editIndicator = document.createElement('div');
+                        editIndicator.style.cssText = `
+                            text-align: center; 
+                            margin-top: 15px; 
+                            font-size: 0.8rem; 
+                            color: #667eea; 
+                            font-style: italic;
+                        `;
+                        editIndicator.innerHTML = '✏️ Haz clic en cualquier cuadro para escribir';
+                        matrixContainer.appendChild(editIndicator);
+                        
+                        container.appendChild(matrixContainer);
+                    }
+                    
+                    // Agregar footer informativo
+                    const footer = document.createElement('div');
+                    footer.style.cssText = `
+                        text-align: center; 
+                        background: #e3f2fd; 
+                        border: 2px solid #bbdefb; 
+                        border-radius: 10px; 
+                        padding: 15px; 
+                        margin-top: 10px;
+                        font-size: 0.9rem;
+                        color: #1976d2;
+                    `;
+                    footer.innerHTML = `
+                        💡 <strong>Consejos:</strong> Puedes escribir directamente con el teclado o hacer clic en cualquier cuadro.<br>
+                        Usa las teclas 0-7 para rellenar automáticamente 3 dígitos con los valores configurados.
+                    `;
+                    container.appendChild(footer);
+                    
+                    console.log(`✅ Modo especial: Creados inputs para ${numberSequence.length} matrices (${numberSequence.length * 18} cuadros total)`);
+                    return;
+                    
+                } else {
+                    // Modo normal en fase de recall: mostrar todos los grupos sin paginación
+                    console.log(`✅ Modo normal en recall: Mostrando ${numberSequence.length} grupos`);
+                    // Usar la lógica existente pero sin paginación
+                }
+            }
             
             // Configurar el contenedor según la dirección y modo de visualización
             container.style.display = 'grid';
@@ -2769,6 +3189,9 @@
             // Asegurar que todos los campos estén completamente vacíos
             setTimeout(() => {
                 const allInputs = container.querySelectorAll('.digit-input');
+                console.log(`✅ Total de inputs generados: ${allInputs.length}`);
+                console.log(`✅ Número de grupos: ${numberSequence.length}`);
+                console.log(`✅ Dígitos esperados: ${specialMatrixMode ? numberSequence.length * 18 : numberSequence.length * 6}`);
                 allInputs.forEach(input => {
                     input.value = '';
                 });
@@ -2777,8 +3200,17 @@
         
         // Generar cuadrícula de dígitos para una página específica
         function generateDigitsGridForPage(pageIndex) {
+            console.log(`⚠️ generateDigitsGridForPage llamada con página: ${pageIndex}`);
+            console.trace(); // Mostrar stack trace
             const container = document.getElementById('digits-input-container');
             container.innerHTML = '';
+            
+            // En modo especial, siempre mostrar todas las matrices (no paginar)
+            if (specialMatrixMode) {
+                // Simplemente llamar a generateDigitsGrid que ya maneja el modo especial
+                generateDigitsGrid();
+                return;
+            }
             
             // Calcular cuántos grupos mostrar en esta página según el modo
             let groupsInThisPage = 0;
@@ -2977,6 +3409,12 @@
         
         // Navegación en la fase de escritura
         function previousInputPage() {
+            console.log(`⚠️ previousInputPage llamada - currentInputPage: ${currentInputPage}`);
+            // En modo especial, no hay paginación
+            if (specialMatrixMode) {
+                return;
+            }
+            
             if (currentInputPage > 0) {
                 currentInputPage--;
                 generateDigitsGridForPage(currentInputPage);
@@ -2984,6 +3422,12 @@
         }
         
         function nextInputPage() {
+            console.log(`⚠️ nextInputPage llamada - currentInputPage: ${currentInputPage}`);
+            // En modo especial, no hay paginación
+            if (specialMatrixMode) {
+                return;
+            }
+            
             let totalPages;
             if (displayMode === 'single') {
                 totalPages = numberSequence.length;
@@ -3053,6 +3497,7 @@
             // Evento para permitir clic directo en cualquier dígito
             input.addEventListener('click', function(e) {
                 e.stopPropagation();
+                console.log(`🖱️ Click en input - Grupo: ${this.dataset.groupIndex}, Posición: ${this.dataset.digitPosition}, Índice total: ${this.dataset.digitIndex}`);
                 this.focus();
                 this.select();
             });
@@ -3062,7 +3507,7 @@
 
         // Configurar captura global de teclas
         function setupGlobalKeyCapture() {
-            const totalDigits = numberSequence.length * 6; // 6 dígitos por grupo (3+3)
+            const totalDigits = specialMatrixMode ? numberSequence.length * 18 : numberSequence.length * 6; // 18 dígitos por matriz o 6 por grupo
             let currentDigitIndex = 0;
             
             function handleKeyPress(e) {
@@ -3119,23 +3564,36 @@
                     }
                     
                     // Rellenar los próximos 3 dígitos disponibles
-                    for (let i = 0; i < 3 && currentDigitIndex + i < inputs.length; i++) {
-                        inputs[currentDigitIndex + i].value = binaryValue[i];
+                    for (let i = 0; i < 3 && currentDigitIndex + i < totalDigits; i++) {
+                        const targetInput = document.querySelector(`[data-digit-index="${currentDigitIndex + i}"]`);
+                        if (targetInput) {
+                            targetInput.value = binaryValue[i];
+                        }
                     }
                     
                     currentDigitIndex += 3;
                     
                     // Auto-avance de cursor: ir al siguiente input vacío
                     let nextEmptyIndex = currentDigitIndex;
-                    while (nextEmptyIndex < inputs.length && inputs[nextEmptyIndex].value !== '') {
+                    while (nextEmptyIndex < totalDigits) {
+                        const targetInput = document.querySelector(`[data-digit-index="${nextEmptyIndex}"]`);
+                        if (targetInput && targetInput.value === '') {
+                            break;
+                        }
                         nextEmptyIndex++;
                     }
                     
-                    if (nextEmptyIndex < inputs.length) {
-                        inputs[nextEmptyIndex].focus();
-                        currentDigitIndex = nextEmptyIndex;
-                    } else if (currentDigitIndex < inputs.length) {
-                        inputs[currentDigitIndex].focus();
+                    if (nextEmptyIndex < totalDigits) {
+                        const targetInput = document.querySelector(`[data-digit-index="${nextEmptyIndex}"]`);
+                        if (targetInput) {
+                            targetInput.focus();
+                            currentDigitIndex = nextEmptyIndex;
+                        }
+                    } else if (currentDigitIndex < totalDigits) {
+                        const targetInput = document.querySelector(`[data-digit-index="${currentDigitIndex}"]`);
+                        if (targetInput) {
+                            targetInput.focus();
+                        }
                     }
                     
                     // Sincronizar con input continuo
@@ -3161,7 +3619,7 @@
                     // Para flechas, permitir navegación entre inputs
                     if (e.key === 'ArrowRight') {
                         e.preventDefault();
-                        const nextInput = focusedDigitInput.parentElement.parentElement.querySelector(`[data-digit-index="${parseInt(focusedDigitInput.dataset.digitIndex) + 1}"]`);
+                        const nextInput = document.querySelector(`[data-digit-index="${parseInt(focusedDigitInput.dataset.digitIndex) + 1}"]`);
                         if (nextInput) {
                             nextInput.focus();
                         }
@@ -3169,7 +3627,7 @@
                     }
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
-                        const prevInput = focusedDigitInput.parentElement.parentElement.querySelector(`[data-digit-index="${parseInt(focusedDigitInput.dataset.digitIndex) - 1}"]`);
+                        const prevInput = document.querySelector(`[data-digit-index="${parseInt(focusedDigitInput.dataset.digitIndex) - 1}"]`);
                         if (prevInput) {
                             prevInput.focus();
                         }
@@ -3183,15 +3641,16 @@
                 if (/^\d$/.test(e.key)) {
                     e.preventDefault();
                     
-                    const inputs = document.querySelectorAll('.digit-input');
-                    
-                    if (currentDigitIndex < inputs.length) {
-                        // Reemplazar el contenido anterior con el nuevo dígito
-                        inputs[currentDigitIndex].value = e.key;
-                        currentDigitIndex++;
-                        
-                        // Sincronizar con input continuo
-                        syncContinuousInput();
+                    if (currentDigitIndex < totalDigits) {
+                        const targetInput = document.querySelector(`[data-digit-index="${currentDigitIndex}"]`);
+                        if (targetInput) {
+                            // Reemplazar el contenido anterior con el nuevo dígito
+                            targetInput.value = e.key;
+                            currentDigitIndex++;
+                            
+                            // Sincronizar con input continuo
+                            syncContinuousInput();
+                        }
                     }
                 }
                 
@@ -3200,10 +3659,12 @@
                     e.preventDefault();
                     if (currentDigitIndex > 0) {
                         currentDigitIndex--;
-                        const inputs = document.querySelectorAll('.digit-input');
-                        inputs[currentDigitIndex].value = '';
-                        inputs[currentDigitIndex].focus();
-                        syncContinuousInput();
+                        const targetInput = document.querySelector(`[data-digit-index="${currentDigitIndex}"]`);
+                        if (targetInput) {
+                            targetInput.value = '';
+                            targetInput.focus();
+                            syncContinuousInput();
+                        }
                     }
                 }
             }
@@ -3321,48 +3782,73 @@
                  window.cleanupKeyCapture = null;
              }
              
-                              // Recolectar todos los dígitos de todos los grupos
+             // Recolectar todos los dígitos de todos los grupos
              let userGroups = [];
              
-             // Para simplificar, vamos a usar el input continuo que ya tiene todos los valores
-             const continuousInput = document.getElementById('continuous-input');
-             if (continuousInput && continuousInput.value) {
-                 const allDigits = continuousInput.value.replace(/[^01]/g, '');
-                 
-                 // Distribuir los dígitos en grupos de 6 (3+3)
-                 for (let i = 0; i < numberSequence.length; i++) {
-                     const startIndex = i * 6;
-                     const groupDigits = allDigits.substring(startIndex, startIndex + 6);
-                     
-                     if (groupDigits.length === 6) {
-                         const firstPart = groupDigits.substring(0, 3);
-                         const secondPart = groupDigits.substring(3, 6);
-                         const group = firstPart + '\n' + secondPart;
-                         userGroups.push(group);
+             if (specialMatrixMode) {
+                 // Modo especial: Matrices de 3x6 (18 dígitos cada una)
+                 // Recolectar de los inputs de cada matriz
+                 for (let matrixIndex = 0; matrixIndex < numberSequence.length; matrixIndex++) {
+                     const inputs = document.querySelectorAll(`[data-group-index="${matrixIndex}"]`);
+                     if (inputs.length === 18) {
+                         const matrixDigits = [];
+                         for (let i = 0; i < 18; i++) {
+                             matrixDigits.push(inputs[i].value || ' ');
+                         }
+                         
+                         // Organizar en 3 filas de 6 dígitos
+                         const row1 = matrixDigits.slice(0, 6).join('');
+                         const row2 = matrixDigits.slice(6, 12).join('');
+                         const row3 = matrixDigits.slice(12, 18).join('');
+                         const matrix = row1 + '\n' + row2 + '\n' + row3;
+                         userGroups.push(matrix);
                      } else {
                          // Si no hay suficientes dígitos, rellenar con espacios
-                         const firstPart = groupDigits.substring(0, 3).padEnd(3, ' ');
-                         const secondPart = groupDigits.substring(3, 6).padEnd(3, ' ');
-                         const group = firstPart + '\n' + secondPart;
-                         userGroups.push(group);
+                         userGroups.push('      \n      \n      ');
                      }
                  }
              } else {
-                 // Fallback: recolectar de los inputs visibles
-                 for (let groupIndex = 0; groupIndex < numberSequence.length; groupIndex++) {
-                     const inputs = document.querySelectorAll(`[data-group-index="${groupIndex}"]`);
-                     if (inputs.length === 6) {
-                         const groupDigits = [];
-                         for (let i = 0; i < 6; i++) {
-                             groupDigits.push(inputs[i].value || ' ');
-                         }
+                 // Modo normal: Grupos de 6 dígitos (3+3)
+                 // Para simplificar, vamos a usar el input continuo que ya tiene todos los valores
+                 const continuousInput = document.getElementById('continuous-input');
+                 if (continuousInput && continuousInput.value) {
+                     const allDigits = continuousInput.value.replace(/[^01]/g, '');
+                     
+                     // Distribuir los dígitos en grupos de 6 (3+3)
+                     for (let i = 0; i < numberSequence.length; i++) {
+                         const startIndex = i * 6;
+                         const groupDigits = allDigits.substring(startIndex, startIndex + 6);
                          
-                         const firstPart = groupDigits.slice(0, 3).join('');
-                         const secondPart = groupDigits.slice(3, 6).join('');
-                         const group = firstPart + '\n' + secondPart;
-                         userGroups.push(group);
-                     } else {
-                         userGroups.push('   \n   ');
+                         if (groupDigits.length === 6) {
+                             const firstPart = groupDigits.substring(0, 3);
+                             const secondPart = groupDigits.substring(3, 6);
+                             const group = firstPart + '\n' + secondPart;
+                             userGroups.push(group);
+                         } else {
+                             // Si no hay suficientes dígitos, rellenar con espacios
+                             const firstPart = groupDigits.substring(0, 3).padEnd(3, ' ');
+                             const secondPart = groupDigits.substring(3, 6).padEnd(3, ' ');
+                             const group = firstPart + '\n' + secondPart;
+                             userGroups.push(group);
+                         }
+                     }
+                 } else {
+                     // Fallback: recolectar de los inputs visibles
+                     for (let groupIndex = 0; groupIndex < numberSequence.length; groupIndex++) {
+                         const inputs = document.querySelectorAll(`[data-group-index="${groupIndex}"]`);
+                         if (inputs.length === 6) {
+                             const groupDigits = [];
+                             for (let i = 0; i < 6; i++) {
+                                 groupDigits.push(inputs[i].value || ' ');
+                             }
+                             
+                             const firstPart = groupDigits.slice(0, 3).join('');
+                             const secondPart = groupDigits.slice(3, 6).join('');
+                             const group = firstPart + '\n' + secondPart;
+                             userGroups.push(group);
+                         } else {
+                             userGroups.push('   \n   ');
+                         }
                      }
                  }
              }
@@ -4020,6 +4506,110 @@
         function createVisualComparison() {
            const container = document.getElementById('visual-comparison-container');
            container.innerHTML = '';
+           
+           // Modo especial: Matriz 3x6
+           if (specialMatrixMode) {
+               container.style.cssText = 'display: flex; flex-direction: column; gap: 30px; max-width: 1000px; margin: 0 auto;';
+               
+               // Crear resultados para cada matriz
+               for (let matrixIndex = 0; matrixIndex < results.length; matrixIndex++) {
+                   const result = results[matrixIndex];
+                   const correctMatrix = numberSequence[matrixIndex];
+                   const userMatrix = result.actual;
+                   
+                   // Contenedor principal para la matriz
+                   const matrixContainer = document.createElement('div');
+                   matrixContainer.style.cssText = 'background: #f8f9fa; border: 2px solid #667eea; border-radius: 15px; padding: 20px;';
+                   
+                   // Título de la matriz
+                   const title = document.createElement('div');
+                   title.textContent = `Matriz ${matrixIndex + 1}`;
+                   title.style.cssText = 'text-align: center; font-weight: bold; font-size: 1.3rem; color: #667eea; margin-bottom: 20px;';
+                   matrixContainer.appendChild(title);
+                   
+                   // Contenedor para mostrar "Tú" vs "Correcta"
+                   const comparisonContainer = document.createElement('div');
+                   comparisonContainer.style.cssText = 'display: flex; gap: 30px; justify-content: center; align-items: flex-start;';
+                   
+                   // Separar las matrices en filas
+                   const correctRows = correctMatrix.split('\n');
+                   const userRows = userMatrix.split('\n');
+                   
+                   // ===== TU RESPUESTA =====
+                   const userContainer = document.createElement('div');
+                   userContainer.style.cssText = 'text-align: center;';
+                   
+                   const userLabel = document.createElement('div');
+                   userLabel.textContent = 'Tú';
+                   userLabel.style.cssText = 'font-size: 1rem; color: #666; margin-bottom: 10px; font-weight: bold;';
+                   userContainer.appendChild(userLabel);
+                   
+                   // Crear 3 filas de 6 dígitos para la respuesta del usuario
+                   for (let rowNum = 0; rowNum < 3; rowNum++) {
+                       const row = document.createElement('div');
+                       row.style.cssText = 'display: flex; gap: 5px; justify-content: center; margin-bottom: ' + (rowNum < 2 ? '10px' : '0');
+                       
+                       for (let colNum = 0; colNum < 6; colNum++) {
+                           const digit = document.createElement('div');
+                           const userDigit = userRows[rowNum] ? userRows[rowNum][colNum] : ' ';
+                           const correctDigit = correctRows[rowNum] ? correctRows[rowNum][colNum] : ' ';
+                           const isCorrect = userDigit === correctDigit;
+                           
+                           digit.style.cssText = 'width: 35px; height: 35px; font-size: 1.2rem; text-align: center; border: 2px solid; border-radius: 5px; font-family: Courier New, monospace; font-weight: bold; display: flex; align-items: center; justify-content: center;';
+                           digit.textContent = userDigit || '_';
+                           
+                           // Aplicar colores según si es correcto o incorrecto
+                           if (isCorrect) {
+                               digit.style.backgroundColor = '#d4edda';
+                               digit.style.color = '#155724';
+                               digit.style.borderColor = '#28a745';
+                           } else {
+                               digit.style.backgroundColor = '#f8d7da';
+                               digit.style.color = '#721c24';
+                               digit.style.borderColor = '#dc3545';
+                           }
+                           
+                           row.appendChild(digit);
+                       }
+                       
+                       userContainer.appendChild(row);
+                   }
+                   
+                   // ===== RESPUESTA CORRECTA =====
+                   const correctContainer = document.createElement('div');
+                   correctContainer.style.cssText = 'text-align: center;';
+                   
+                   const correctLabel = document.createElement('div');
+                   correctLabel.textContent = 'Correcta';
+                   correctLabel.style.cssText = 'font-size: 1rem; color: #28a745; margin-bottom: 10px; font-weight: bold;';
+                   correctContainer.appendChild(correctLabel);
+                   
+                   // Crear 3 filas de 6 dígitos para la respuesta correcta
+                   for (let rowNum = 0; rowNum < 3; rowNum++) {
+                       const row = document.createElement('div');
+                       row.style.cssText = 'display: flex; gap: 5px; justify-content: center; margin-bottom: ' + (rowNum < 2 ? '10px' : '0');
+                       
+                       for (let colNum = 0; colNum < 6; colNum++) {
+                           const digit = document.createElement('div');
+                           const correctDigit = correctRows[rowNum] ? correctRows[rowNum][colNum] : ' ';
+                           
+                           digit.style.cssText = 'width: 35px; height: 35px; font-size: 1.2rem; text-align: center; border: 2px solid #28a745; border-radius: 5px; font-family: Courier New, monospace; font-weight: bold; display: flex; align-items: center; justify-content: center; background: white; color: #155724;';
+                           digit.textContent = correctDigit || '_';
+                           
+                           row.appendChild(digit);
+                       }
+                       
+                       correctContainer.appendChild(row);
+                   }
+                   
+                   comparisonContainer.appendChild(userContainer);
+                   comparisonContainer.appendChild(correctContainer);
+                   matrixContainer.appendChild(comparisonContainer);
+                   container.appendChild(matrixContainer);
+               }
+               
+               return;
+           }
            
            if (direction === 'vertical') {
                // En modo vertical, usar la misma estructura que la fase de escritura
