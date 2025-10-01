@@ -1240,44 +1240,74 @@
             <!-- Controles Especiales Configurables -->
             <div class="section">
                 <h3 class="section-title">6. Controles Especiales de Teclado</h3>
-                <p>Configura las teclas para rellenar automáticamente 3 dígitos binarios:</p>
+                <p>Configura los valores binarios que se insertarán al presionar cada tecla numérica (0-7):</p>
+                <p style="font-size: 0.9rem; color: #666; margin: 10px 0;">
+                    ℹ️ <strong>Nota:</strong> Las teclas son fijas (0-7), pero puedes <strong>editar y borrar libremente</strong> los valores binarios que produce cada una.
+                    <span id="save-confirmation" style="display: none; color: #28a745; font-weight: bold; margin-left: 10px;">✅ ¡Guardado!</span>
+                </p>
+                <p style="font-size: 0.85rem; color: #007bff; margin: 10px 0;">
+                    💡 <strong>Tip:</strong> Haz clic en un campo para seleccionar todo el texto y editarlo fácilmente. Los cambios se guardan automáticamente.
+                </p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 0:</label>
-                        <input type="text" id="key-0" class="small-input" value="000" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">0</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-0" class="small-input" value="000" maxlength="3" placeholder="000" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 1:</label>
-                        <input type="text" id="key-1" class="small-input" value="001" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">1</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-1" class="small-input" value="001" maxlength="3" placeholder="001" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 2:</label>
-                        <input type="text" id="key-2" class="small-input" value="011" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">2</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-2" class="small-input" value="011" maxlength="3" placeholder="011" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 3:</label>
-                        <input type="text" id="key-3" class="small-input" value="111" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">3</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-3" class="small-input" value="111" maxlength="3" placeholder="111" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 4:</label>
-                        <input type="text" id="key-4" class="small-input" value="100" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">4</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-4" class="small-input" value="100" maxlength="3" placeholder="100" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 5:</label>
-                        <input type="text" id="key-5" class="small-input" value="101" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">5</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-5" class="small-input" value="101" maxlength="3" placeholder="101" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 6:</label>
-                        <input type="text" id="key-6" class="small-input" value="110" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">6</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-6" class="small-input" value="110" maxlength="3" placeholder="110" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; background: white;">
-                        <label style="font-weight: bold; color: #333; min-width: 30px;">Tecla 7:</label>
-                        <input type="text" id="key-7" class="small-input" value="010" maxlength="3" style="font-family: 'Courier New', monospace;">
+                        <label style="font-weight: bold; color: #fff; background: #007bff; padding: 5px 10px; border-radius: 5px; min-width: 50px; text-align: center;">7</label>
+                        <span style="color: #666;">→</span>
+                        <input type="text" id="key-7" class="small-input" value="010" maxlength="3" placeholder="010" style="font-family: 'Courier New', monospace; border: 2px solid #28a745; flex: 1;" title="Haz clic para editar. Puedes borrar y escribir libremente. Solo acepta 0 y 1.">
                     </div>
                 </div>
                 <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
                     💡 Tip: Durante la fase de escritura, presiona estas teclas para rellenar automáticamente 3 dígitos binarios y avanzar al siguiente campo.
                 </p>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button onclick="resetSpecialKeysToDefault()" style="
+                        padding: 10px 20px; 
+                        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); 
+                        color: white; 
+                        border: none; 
+                        border-radius: 8px; 
+                        cursor: pointer; 
+                        font-size: 1rem;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'">
+                        🔄 Restaurar valores por defecto
+                    </button>
+                </div>
             </div>
 
             <!-- Resumen de Configuración -->
@@ -1589,8 +1619,8 @@
         let currentInputPage = 0; // Para la paginación en la fase de escritura
         let results = []; // Para almacenar resultados detallados
         
-        // Configuración de controles especiales
-        let specialKeys = {
+        // Configuración de controles especiales - valores por defecto
+        const defaultSpecialKeys = {
             '0': '000',
             '1': '001', 
             '2': '011',
@@ -1600,6 +1630,9 @@
             '6': '110',
             '7': '010'
         };
+        
+        // Cargar configuración desde localStorage o usar valores por defecto
+        let specialKeys = loadSpecialKeysFromStorage();
         
         // Variables para sistema de rondas
         let currentRound = 1;
@@ -1986,6 +2019,60 @@
             }
         }
 
+        // Función para guardar controles especiales en localStorage
+        function saveSpecialKeysToStorage() {
+            try {
+                localStorage.setItem('binaryGameSpecialKeys', JSON.stringify(specialKeys));
+                showSaveConfirmation();
+            } catch (e) {
+                console.error('Error al guardar configuración:', e);
+            }
+        }
+        
+        // Función para cargar controles especiales desde localStorage
+        function loadSpecialKeysFromStorage() {
+            try {
+                const saved = localStorage.getItem('binaryGameSpecialKeys');
+                if (saved) {
+                    const loaded = JSON.parse(saved);
+                    // Validar que tiene todas las teclas necesarias
+                    for (let i = 0; i <= 7; i++) {
+                        const key = i.toString();
+                        if (!loaded[key] || loaded[key].length !== 3 || !/^[01]{3}$/.test(loaded[key])) {
+                            console.warn('Configuración guardada inválida, usando valores por defecto');
+                            return {...defaultSpecialKeys};
+                        }
+                    }
+                    return loaded;
+                }
+            } catch (e) {
+                console.error('Error al cargar configuración:', e);
+            }
+            return {...defaultSpecialKeys};
+        }
+        
+        // Función para restaurar valores por defecto
+        function resetSpecialKeysToDefault() {
+            if (confirm('¿Estás seguro de que quieres restaurar los valores por defecto de los controles especiales?')) {
+                specialKeys = {...defaultSpecialKeys};
+                saveSpecialKeysToStorage();
+                loadSpecialKeysConfig();
+                updateControlsSummary();
+                updateSpecialControlsInfo();
+            }
+        }
+        
+        // Función para mostrar confirmación de guardado
+        function showSaveConfirmation() {
+            const confirmationEl = document.getElementById('save-confirmation');
+            if (confirmationEl) {
+                confirmationEl.style.display = 'inline-block';
+                setTimeout(() => {
+                    confirmationEl.style.display = 'none';
+                }, 2000);
+            }
+        }
+        
         // Función para cargar configuración de controles especiales
         function loadSpecialKeysConfig() {
             for (let i = 0; i <= 7; i++) {
@@ -1993,13 +2080,34 @@
                 if (input) {
                     input.value = specialKeys[i.toString()];
                     
-                    // Event listener para actualizar la configuración
+                    // Event listener para filtrar solo dígitos binarios mientras escribe
                     input.addEventListener('input', function() {
-                        const value = this.value.replace(/[^01]/g, '').padEnd(3, '0').substring(0, 3);
+                        // Solo permitir 0 y 1, limitar a 3 caracteres
+                        const filtered = this.value.replace(/[^01]/g, '').substring(0, 3);
+                        this.value = filtered;
+                    });
+                    
+                    // Event listener para validar y guardar cuando termina de editar
+                    input.addEventListener('blur', function() {
+                        let value = this.value.trim();
+                        
+                        // Si está vacío o incompleto, rellenar con ceros a la derecha
+                        if (value.length === 0) {
+                            value = '000';
+                        } else if (value.length < 3) {
+                            value = value.padEnd(3, '0');
+                        }
+                        
                         this.value = value;
                         specialKeys[i.toString()] = value;
+                        saveSpecialKeysToStorage();
                         updateControlsSummary();
                         updateSpecialControlsInfo();
+                    });
+                    
+                    // Permitir seleccionar todo el texto al hacer clic
+                    input.addEventListener('focus', function() {
+                        this.select();
                     });
                 }
             }
