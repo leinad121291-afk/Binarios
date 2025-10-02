@@ -1455,8 +1455,8 @@
             </div>
             
             <div>
-                <button class="button" onclick="checkAnswer()" id="verify-btn">Verificar Respuesta</button>
                 <button class="button" onclick="showNumberAgain()" id="show-again-btn">Ver de Nuevo</button>
+                <button class="button" onclick="checkAnswer()" id="verify-btn">Verificar Respuesta</button>
             </div>
         </div>
 
@@ -1546,11 +1546,11 @@
                      <div class="progress-fill" id="round-progress-fill"></div>
                  </div>
              </div>
-             <div>
-                 <button class="button" onclick="nextRound()" id="next-round-btn">Siguiente Ronda</button>
-                 <button class="button" onclick="resetGame()" id="new-game-btn">Nuevo Juego</button>
-                 <button class="button" onclick="goToMenu()" id="menu-btn" style="display: none;">Menú</button>
-             </div>
+            <div>
+                <button class="button" onclick="resetGame()" id="new-game-btn">Nuevo Juego</button>
+                <button class="button" onclick="nextRound()" id="next-round-btn">Siguiente Ronda</button>
+                <button class="button" onclick="goToMenu()" id="menu-btn" style="display: none;">Menú</button>
+            </div>
          </div>
          
          <!-- Fase de Resultados Finales -->
@@ -3687,6 +3687,22 @@
                         nextNumber();
                         return;
                     }
+                    if (e.key === ' ') { // Barra espaciadora
+                        e.preventDefault();
+                        // Ir a la página 1 (índice 0)
+                        currentNumberIndex = 0;
+                        updateDisplay();
+                        
+                        // Reiniciar timer si estamos en modo autoavance
+                        if (currentMode === 'auto-advance') {
+                            clearInterval(timerInterval);
+                            timer = autoAdvanceTime;
+                            document.getElementById('timer').textContent = `Tiempo restante: ${timer.toFixed(1)} segundos`;
+                            document.getElementById('elapsed-time').textContent = `Tiempo empleado: 0.0 segundos`;
+                            startTimer();
+                        }
+                        return;
+                    }
                     return; // No procesar otras teclas en memorización
                 }
                 
@@ -4014,31 +4030,36 @@
              isCorrect = correct;
              
              // Calcular precisión por dígitos correctos de la ronda actual
-             let correctDigits = 0;
-             let totalDigits = 0;
-             
-             // Comparar cada dígito individualmente
-             for (let i = 0; i < numberSequence.length; i++) {
-                 const expected = numberSequence[i];
-                 const actual = userGroups[i] || '';
-                 
-                 // Separar en partes para comparar
-                 const expectedParts = expected.split('\n');
-                 const actualParts = actual.split('\n');
-                 
-                 // Comparar cada dígito de cada parte (6 dígitos total por grupo)
-                 for (let partIndex = 0; partIndex < 2; partIndex++) {
-                     const expectedPart = expectedParts[partIndex] || '';
-                     const actualPart = actualParts[partIndex] || '';
-                     
-                     for (let j = 0; j < 3; j++) {
-                         totalDigits++;
-                         if (expectedPart[j] === actualPart[j]) {
-                             correctDigits++;
-                         }
-                     }
-                 }
-             }
+            let correctDigits = 0;
+            let totalDigits = 0;
+            
+            // Comparar cada dígito individualmente
+            for (let i = 0; i < numberSequence.length; i++) {
+                const expected = numberSequence[i];
+                const actual = userGroups[i] || '';
+                
+                // Separar en partes para comparar
+                const expectedParts = expected.split('\n');
+                const actualParts = actual.split('\n');
+                
+                // En modo matrices 3x6, cada grupo tiene 3 filas de 6 dígitos (18 total)
+                // En modo normal, cada grupo tiene 2 filas de 3 dígitos (6 total)
+                const numRows = specialMatrixMode ? 3 : 2;
+                const digitsPerRow = specialMatrixMode ? 6 : 3;
+                
+                // Comparar cada dígito de cada fila
+                for (let partIndex = 0; partIndex < numRows; partIndex++) {
+                    const expectedPart = expectedParts[partIndex] || '';
+                    const actualPart = actualParts[partIndex] || '';
+                    
+                    for (let j = 0; j < digitsPerRow; j++) {
+                        totalDigits++;
+                        if (expectedPart[j] === actualPart[j]) {
+                            correctDigits++;
+                        }
+                    }
+                }
+            }
              
              // Calcular precisión de la ronda actual (porcentaje de dígitos correctos)
              const roundAccuracy = totalDigits > 0 ? Math.round((correctDigits / totalDigits) * 100) : 0;
@@ -4466,7 +4487,12 @@
             // Actualizar texto de binarios acertados
             const roundAccuracyLabel = document.getElementById('round-accuracy-label');
             if (roundAccuracyLabel && correctDigits !== undefined && totalDigits !== undefined) {
-                roundAccuracyLabel.textContent = `${correctDigits}/${totalDigits} binarios acertados`;
+                // En modo matrices 3x6, mostrar específicamente 18 binarios por página
+                if (specialMatrixMode) {
+                    roundAccuracyLabel.textContent = `${correctDigits}/${totalDigits} binarios acertados (18 por página)`;
+                } else {
+                    roundAccuracyLabel.textContent = `${correctDigits}/${totalDigits} binarios acertados`;
+                }
             }
             
             // Actualizar estado (solo Correcto o Incorrecto)
